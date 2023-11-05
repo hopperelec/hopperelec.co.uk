@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Cameron Johnston" />
+
+    <!-- Icons/PWA -->
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/src/routes/site.webmanifest/site.webmanifest" />
+
+    <style>
+      /* prettier-ignore */
+      body, p, h1, h2, h3, h4, h5, ul {
+        margin: 0;
+      }
+      body {
+        width: 100vw;
+        height: 100vh;
+        padding: 0;
+      }
+      a {
+        color: #ffa;
+        text-decoration: none;
+        font-weight: bold;
+      }
+    </style>
+    %sveltekit.head%
+  </head>
+  <body>
+    <div id="app">%sveltekit.body%</div>
+  </body>
+</html>
