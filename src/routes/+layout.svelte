@@ -5,10 +5,6 @@
     import { BRAND_COLOR } from "$lib/constants.ts";
     const links: {[key: string]: string;} = {
         "Home": "/",
-        "Projects": "/projects",
-        "Biography": "/bio",
-        "Contact": "/contact",
-        "Account": "/account"
     };
 </script>
 
