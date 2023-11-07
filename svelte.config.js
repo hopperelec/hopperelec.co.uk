@@ -12,7 +12,7 @@ export default {
   kit: {
     adapter:
       process.env.GITHUB_PAGES === "true"
-        ? adapterStatic({ precompress: true, fallback: "404.html" })
+        ? adapterStatic({ fallback: "404.html" })
         : adapterNode({ precompress: true, polyfill: false }),
     paths: {
       base: process.env.BASE_PATH,
