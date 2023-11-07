@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "cross-env PUBLIC_BASE_URL=http://localhost:4173 vite build",
+    "build": "vite build",
+    "build-preview": "cross-env PUBLIC_BASE_URL=http://localhost:4173 npm run build",
     "preview": "vite preview",
     "format": "npx prettier . -w",
     "format-check": "npx prettier . -c"
