@@ -1,13 +1,21 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { vitePreprocess } from "@sveltejs/kit/vite";
-import adapter from "@sveltejs/adapter-node";
+import adapterNode from "@sveltejs/adapter-node";
+import adapterStatic from "@sveltejs/adapter-static";
+import dotenv from "dotenv";
+dotenv.config();
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
   preprocess: vitePreprocess(),
   kit: {
-    adapter: adapter({
-      precompress: true,
-      polyfill: false,
-    }),
+    adapter:
+      process.env.GITHUB_PAGES === "true"
+        ? adapterStatic({ precompress: true, fallback: "404.html" })
+        : adapterNode({ precompress: true, polyfill: false }),
+    paths: {
+      base: process.env.BASE_PATH,
+    },
   },
 };
