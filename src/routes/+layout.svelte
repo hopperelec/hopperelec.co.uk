@@ -45,6 +45,10 @@
         background-color: var(--main-bg-color);
     }
 
+    main, li {
+        font-family: Segoe UI,Calibri,Arial,sans-serif;
+    }
+
     /* Structure */
     main {
         width: 90vw;
@@ -111,7 +115,6 @@
         flex-grow: 1;
         margin: 0 5vw;
         font-size: 3vh;
-        font-family: Arial, sans-serif;
         font-weight: bold;
     }
     @media (max-width: 1050px) {
