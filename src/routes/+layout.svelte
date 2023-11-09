@@ -1,8 +1,8 @@
 <script lang="ts">
   import { page } from "$app/stores";
   import LogoText from "$lib/LogoText.svelte";
-  import { title } from "$lib/title.ts";
-  import { BRAND_COLOR } from "$lib/constants.ts";
+  import { title } from "$lib/title";
+  import { BRAND_COLOR } from "$lib/constants";
   const links: { [key: string]: string } = {
     Home: "/",
   };
@@ -40,15 +40,12 @@
     background-color: var(--secondary-bg-color);
   }
 
-  main,
-  header,
-  li {
+  main, header, li {
     border: var(--border);
     background-color: var(--main-bg-color);
   }
 
-  main,
-  li {
+  main, li {
     font-family:
       Segoe UI,
       Calibri,
@@ -65,8 +62,7 @@
     overflow-y: auto;
     color: white;
   }
-  ul,
-  footer {
+  ul, footer {
     width: 100%;
     height: 10vh;
     position: fixed;

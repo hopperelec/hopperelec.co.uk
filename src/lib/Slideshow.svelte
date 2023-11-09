@@ -172,8 +172,7 @@
       content: "⮞";
     }
   }
-  #prevButton,
-  #nextButton {
+  #prevButton, #nextButton {
     padding: 10px 20px;
     transition: padding 0.5s linear;
     text-align: center;
