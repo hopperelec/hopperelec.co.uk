@@ -6,7 +6,8 @@ on:
   pull_request:
 
 jobs:
-  setup:
+  eslint:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,13 +16,15 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-  eslint:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
       - run: npm run eslint
   stylelint:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
       - run: npm run stylelint
