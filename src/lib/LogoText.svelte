@@ -94,8 +94,9 @@
 <style>
   svg {
     fill: var(--main-fg-color);
-  }
-  svg:hover #matrix path {
-    display: none;
+
+    &:hover #matrix path {
+        display: none;
+    }
   }
 </style>

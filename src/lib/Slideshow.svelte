@@ -72,7 +72,7 @@
   <img src={currSlide.backgroundImg} alt={currSlide.altText} />
 {/if}
 <div id="overlay">
-  <h2 class="horCenter">My most recent projects include...</h2>
+  <h2 class="hor-center">My most recent projects include...</h2>
   {#if currSlide.caption || currSlide.captionLink}
     <div id="caption" class="center">
       <Typewriter>
@@ -85,20 +85,20 @@
     </div>
   {/if}
   <button
-    id="prevButton"
+    id="prev-button"
     title="Previous slide"
-    class="verCenter"
+    class="ver-center"
     on:click={() => $currSlideNo--}
     type="button"
   />
   <button
-    id="nextButton"
+    id="next-button"
     title="Next slide"
-    class="verCenter"
+    class="ver-center"
     on:click={() => $currSlideNo++}
     type="button"
   />
-  <div id="positions" class="horCenter">
+  <div id="positions" class="hor-center">
     {#each slides as slide, slideNo}
       {#if slide === currSlide}
         <button class="checked">◉</button>
@@ -132,11 +132,13 @@
     top: 50%;
     transform: translate(-50%, -50%);
   }
-  .horCenter {
+
+  .hor-center {
     left: 50%;
     transform: translate(-50%, 0);
   }
-  .verCenter {
+
+  .ver-center {
     top: 50%;
     transform: translate(0, -50%);
   }
@@ -157,29 +159,33 @@
     }
   }
 
-  #prevButton {
+  #prev-button {
     border-left: none;
     border-radius: 0 10px 10px 0;
+
     &::before {
       content: "⮜";
     }
   }
-  #nextButton {
+
+  #next-button {
     border-right: none;
     border-radius: 10px 0 0 10px;
     right: 0;
+
     &::before {
       content: "⮞";
     }
   }
-  #prevButton, #nextButton {
+
+  #prev-button, #next-button {
     padding: 10px 20px;
-    transition: padding 0.5s linear;
+    transition: transform 0.5s linear;
     text-align: center;
     cursor: pointer;
 
     &:hover {
-      padding: 10px 30px;
+      transform: scaleX(2);
     }
   }
 
@@ -198,7 +204,7 @@
       border: none;
       color: inherit;
 
-      /*noinspection CssUnusedSymbol*/
+      /* noinspection CssUnusedSymbol */
       &:not(.checked) {
         cursor: pointer;
       }

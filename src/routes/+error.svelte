@@ -1,11 +1,12 @@
 <script>
-  import { title } from "$lib/title.ts";
+  import { title } from "$lib/title";
   import { page } from "$app/stores";
+
   title.set("Error " + $page.status);
 </script>
 
 <div>
-  <h1 style="">An error has occurred!</h1>
+  <h1>An error has occurred!</h1>
   <h2>{$page.status}: {$page.error?.message}</h2>
 </div>
 
