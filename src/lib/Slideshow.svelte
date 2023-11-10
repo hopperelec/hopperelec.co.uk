@@ -180,12 +180,12 @@
 
   #prev-button, #next-button {
     padding: 10px 20px;
-    transition: transform 0.5s linear;
+    transition: padding 0.5s linear;
     text-align: center;
     cursor: pointer;
 
     &:hover {
-      transform: scaleX(2);
+      padding: 10px 30px;
     }
   }
 
