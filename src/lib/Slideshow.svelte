@@ -125,6 +125,10 @@
     border: var(--border);
     color: var(--main-fg-color);
     font-size: 48px;
+
+    @media (width <= 944px) {
+        font-size: 25px;
+    }
   }
 
   .center {
@@ -190,6 +194,8 @@
   }
 
   #positions {
+    display: flex;
+    align-items: center;
     border-bottom: none;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
