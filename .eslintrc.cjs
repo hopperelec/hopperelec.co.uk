@@ -26,7 +26,7 @@ module.exports = {
     {
       files: ["*.js"],
       parser: "espree",
-    }
+    },
   ],
 
   env: {
@@ -46,6 +46,6 @@ module.exports = {
   },
 
   globals: {
-    NodeJS: true
+    NodeJS: true,
   },
 };
