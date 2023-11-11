@@ -6,4 +6,11 @@ export const SITE_DESCRIPTION =
 export const BASE_URL = env["PUBLIC_BASE_URL"] || "http://localhost:5173";
 export const BRAND_COLOR = "#c41313";
 
-export default { SITE_NAME, SITE_DESCRIPTION, BASE_URL, BRAND_COLOR };
+const constants = { SITE_NAME, SITE_DESCRIPTION, BASE_URL, BRAND_COLOR };
+
+export function insertInto(text: string): string {
+  for (const [key, value] of Object.entries(constants)) {
+    text = text.replaceAll("%" + key + "%", value);
+  }
+  return text;
+}

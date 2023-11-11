@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import LogoText from "$lib/LogoText.svelte";
+  import LogoText from "$lib/components/LogoText.svelte";
   import { title } from "$lib/title";
   import { BRAND_COLOR } from "$lib/constants";
   const links: { [key: string]: string } = {
