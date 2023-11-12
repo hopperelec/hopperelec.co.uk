@@ -5,6 +5,7 @@
   import { BRAND_COLOR } from "$lib/constants";
   const links: { [key: string]: string } = {
     Home: "/",
+    Projects: "/projects",
   };
 </script>
 
@@ -20,11 +21,13 @@
 <nav>
   <ul style="--num-links: {Object.keys(links).length}">
     {#each Object.entries(links) as [label, href]}
-      {#if $page.url.pathname === href}
-        <li class="active">{label}</li>
-      {:else}
-        <li><a {href}>{label}</a></li>
-      {/if}
+      <li>
+        {#if $page.url.pathname === href}
+          <h1>{label}</h1>
+        {:else}
+          <a {href}>{label}</a>
+        {/if}
+      </li>
     {/each}
   </ul>
 </nav>
@@ -45,7 +48,7 @@
     background-color: var(--secondary-bg-color);
   }
 
-  main, header, li {
+  main, header {
     border: var(--border);
     background-color: var(--main-bg-color);
   }
@@ -58,10 +61,11 @@
 
   /* noinspection ALL */
   :global(#app) {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    height: 100vh;
   }
 
   nav, footer {
@@ -86,60 +90,65 @@
     align-items: center;
   }
 
-  ul {
-      padding: 5px 0;
-      height: calc(100% - 10px);
-      list-style: none;
-      gap: 5px 5%;
-      flex-wrap: wrap;
+  header {
+    padding: 5px;
+    height: 5vh;
   }
 
   /* --- Navbar formatting --- */
 
-  li, a {
-      color: var(--main-fg-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  }
-
-  a {
-      width: 100%;
-      height: 100%;
-      font-weight: normal;
+  ul {
+    padding: 0;
+    height: 100%;
+    list-style: none;
+    gap: 5px 5%;
+    flex-wrap: wrap;
+    align-items: stretch;
   }
 
   li {
-      flex-basis: 0;
-      flex-grow: 1;
-      font-size: 3vh;
-      font-weight: bold;
-      @media (width <= 1050px) {
-          margin-left: 4px;
-          margin-right: 4px;
-      }
+    display: flex;
+    align-items: center;
+    flex-basis: 0;
+    flex-grow: 1;
+    font-weight: bold;
+  }
+
+  a {
+    font-weight: normal;
+  }
+
+  h1, a {
+    color: var(--main-fg-color);
+    background-color: var(--main-bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 70%;
+    font-size: 3vh;
 
   /* --- Animated navbar border --- */
 
-      background-image: linear-gradient(90deg, black 50%, transparent 50%),
-      linear-gradient(90deg, black 50%, transparent 50%),
-      linear-gradient(0deg, black 50%, transparent 50%),
-      linear-gradient(0deg, black 50%, transparent 50%);
-      background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-      background-position:
-              0 0,
-              100% 100%,
-              0 100%,
-              100% 0;
-      background-size:
-              8px 2px,
-              8px 2px,
-              2px 8px,
-              2px 8px;
-      border: none;
+    background-image: linear-gradient(90deg, black 50%, transparent 50%),
+    linear-gradient(90deg, black 50%, transparent 50%),
+    linear-gradient(0deg, black 50%, transparent 50%),
+    linear-gradient(0deg, black 50%, transparent 50%);
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-position:
+            0 0,
+            100% 100%,
+            0 100%,
+            100% 0;
+    background-size:
+            8px 2px,
+            8px 2px,
+            2px 8px,
+            2px 8px;
+    border: none;
   }
 
-  .active {
+  h1 {
     background-size:
       8px 3px,
       8px 3px,
@@ -147,7 +156,7 @@
       3px 8px;
   }
 
-  li:not(.active):hover {
+  a:hover {
     animation: border-animation calc(25s / var(--num-links)) linear infinite;
   }
   @keyframes border-animation {

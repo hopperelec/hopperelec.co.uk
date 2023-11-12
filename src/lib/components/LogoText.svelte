@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.5 8" width="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.5 8" width="100%" height="100%">
   <defs>
     <mask id="matrix">
       <rect id="letterRect" fill="white" width="4" height="8" />
