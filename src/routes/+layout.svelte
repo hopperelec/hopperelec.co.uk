@@ -130,21 +130,22 @@
 
   /* --- Animated navbar border --- */
 
-    background-image: linear-gradient(90deg, black 50%, transparent 50%),
-    linear-gradient(90deg, black 50%, transparent 50%),
-    linear-gradient(0deg, black 50%, transparent 50%),
-    linear-gradient(0deg, black 50%, transparent 50%);
+    background-image:
+      linear-gradient(90deg, black 50%, transparent 50%),
+      linear-gradient(90deg, black 50%, transparent 50%),
+      linear-gradient(0deg, black 50%, transparent 50%),
+      linear-gradient(0deg, black 50%, transparent 50%);
     background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
     background-position:
-            0 0,
-            100% 100%,
-            0 100%,
-            100% 0;
+      0 0,
+      100% 100%,
+      0 100%,
+      100% 0;
     background-size:
-            8px 2px,
-            8px 2px,
-            2px 8px,
-            2px 8px;
+      8px 2px,
+      8px 2px,
+      2px 8px,
+      2px 8px;
     border: none;
   }
 

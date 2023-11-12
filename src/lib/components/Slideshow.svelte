@@ -168,7 +168,7 @@
     border-radius: 0 10px 10px 0;
 
     &::before {
-      content: "⮜";
+      content: "❮";
     }
   }
 
@@ -178,7 +178,7 @@
     right: 0;
 
     &::before {
-      content: "⮞";
+      content: "❯";
     }
   }
 
