@@ -8,3 +8,4 @@ export const title = {
     set(`${SITE_NAME} | ${value}`);
   },
 };
+export const description = writable(SITE_NAME);

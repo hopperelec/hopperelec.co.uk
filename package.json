@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
+    "dev:host": "vite dev --host",
     "build": "vite build",
     "build:preview": "cross-env PUBLIC_BASE_URL=http://localhost:4173 npm run build",
     "build:test-github": "cross-env GITHUB_PAGES=true npm run build:preview",
@@ -34,7 +35,6 @@
     "espree": "^9.6.1",
     "prettier": "3.0.3",
     "prettier-plugin-svelte": "^3.0.3",
-    "sass": "^1.69.5",
     "scss": "^0.2.4",
     "stylelint": "^15.11.0",
     "stylelint-config-html": "^1.1.0",

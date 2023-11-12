@@ -1,5 +1,5 @@
 <script>
-  import { title } from "$lib/title";
+  import { title } from "$lib/page-meta";
   import { page } from "$app/stores";
 
   title.set("Error " + $page.status);
@@ -14,8 +14,8 @@
   div {
     width: 100%;
     height: 100%;
+    text-align: center;
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-direction: column;
   }
