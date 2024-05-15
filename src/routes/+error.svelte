@@ -1,8 +1,8 @@
 <script>
-  import { title } from "$lib/page-meta";
-  import { page } from "$app/stores";
+import { page } from "$app/stores";
+import { title } from "$lib/page-meta";
 
-  title.set("Error " + $page.status);
+title.set(`Error ${$page.status}`);
 </script>
 
 <div>

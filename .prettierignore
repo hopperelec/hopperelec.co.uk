@@ -1,6 +1,0 @@
-/node_modules/
-/build/
-/.svelte-kit/
-/.vercel/
-/package-lock.json
-/vite.config.ts.timestamp-*.mjs

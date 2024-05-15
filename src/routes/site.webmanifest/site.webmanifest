@@ -1,10 +1,10 @@
 {
-  "name": "%SITE_NAME% website",
-  "short_name": "%SITE_NAME%",
-  "description": "%SITE_DESCRIPTION%",
-  "theme_color": "%BRAND_COLOR%",
-  "background_color": "%BRAND_COLOR%",
-  "display": "minimal-ui",
-  "start_url": "/",
-  "scope": "/"
+	"name": "%SITE_NAME% website",
+	"short_name": "%SITE_NAME%",
+	"description": "%SITE_DESCRIPTION%",
+	"theme_color": "%BRAND_COLOR%",
+	"background_color": "%BRAND_COLOR%",
+	"display": "minimal-ui",
+	"start_url": "/",
+	"scope": "/"
 }

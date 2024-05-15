@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { description, title } from "$lib/page-meta";
-  import { BRAND_COLOR } from "$lib/constants";
+import { BRAND_COLOR } from "$lib/constants";
+import { description, title } from "$lib/page-meta";
 </script>
 
 <svelte:head>
