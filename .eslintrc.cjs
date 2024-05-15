@@ -36,13 +36,4 @@ module.exports = {
       parser: "espree",
     },
   ],
-  settings: {
-    svelte: {
-      kit: {
-        paths: {
-          base: process.env.BASE_PATH,
-        },
-      },
-    },
-  },
 };
