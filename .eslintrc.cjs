@@ -1,15 +1,23 @@
+/** @type { import("eslint").Linter.FlatConfig } */
 module.exports = {
+  root: true,
   extends: [
     "eslint:recommended",
     "prettier",
     "plugin:@typescript-eslint/recommended",
     "plugin:svelte/prettier",
   ],
-
   parser: "@typescript-eslint/parser",
+  plugins: ["@typescript-eslint"],
   parserOptions: {
-    project: "tsconfig.json",
+    sourceType: "module",
+    ecmaVersion: 2020,
     extraFileExtensions: [".svelte"],
+  },
+  env: {
+    browser: true,
+    node: true,
+    es2020: true,
   },
   overrides: [
     {
@@ -28,13 +36,6 @@ module.exports = {
       parser: "espree",
     },
   ],
-
-  env: {
-    browser: true,
-    node: true,
-    es2020: true,
-  },
-
   settings: {
     svelte: {
       kit: {
@@ -43,9 +44,5 @@ module.exports = {
         },
       },
     },
-  },
-
-  globals: {
-    NodeJS: true,
   },
 };
