@@ -6,4 +6,4 @@ which introduces a lot of features to make the code more readable and maintainab
 
 The improved readability of this new version makes me happy enough to make it open-source, hence you finding it here!
 
-You can see a live dev preview of this site on GitHub Pages [here](https://hopperelec.github.io/hopperelec.co.uk)!
+You can see a live dev preview of this site [here](https://hopperelec.vercel.app)!
