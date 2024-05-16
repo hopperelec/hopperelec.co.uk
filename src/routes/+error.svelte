@@ -11,18 +11,18 @@ title.set(`Error ${$page.status}`);
 </div>
 
 <style>
-  div {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
+div {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 
-  h1 {
-    font-size: 64px;
-    font-weight: bold;
-    color: white;
-  }
+h1 {
+  font-size: 64px;
+  font-weight: bold;
+  color: white;
+}
 </style>
