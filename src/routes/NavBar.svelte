@@ -28,6 +28,11 @@
     font-size: 1.5em;
     font-weight: bold;
     font-family: "Roboto Mono", monospace, sans-serif;
+
+    /* Hard-coded based on nav width, there might be a more responsive solution */
+    @media (width <= 484px) {
+      font-size: 4.95vw;
+    }
   }
 
   ul {
@@ -41,7 +46,7 @@
     cursor: pointer;
     text-align: center;
     text-wrap: nowrap;
-    padding: 10px;
+    padding: 0.5em;
 
     /* Every li except the first */
     & + li {
@@ -51,13 +56,13 @@
         /* Dividing line */
         content: '';
         height: 80%;
-        border-left: 2px solid white;
-        padding-left: 10px;
+        border-left: 0.1em solid white;
+        padding-left: 0.5em;
       }
     }
   }
 
-  /* Hard-coded nav width, there might be a more responsive solution */
+  /* Hard-coded, there might be a more responsive solution */
   @media (width >= 600px) {
     #nav-container {
       display: flex;
