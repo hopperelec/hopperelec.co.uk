@@ -15,7 +15,8 @@
 	},
 	"dependencies": {
 		"html-minifier-terser": "^7.2.0",
-		"monaco-editor": "^0.48.0"
+		"svelte-highlight": "^7.6.1",
+		"svelte-markdown": "^0.4.1"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.7.3",
