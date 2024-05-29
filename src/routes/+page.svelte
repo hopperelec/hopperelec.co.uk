@@ -25,7 +25,7 @@ onMount(async () => {
 			open: filename === "README.md",
 		});
 	}
-	// biome-ignore lint/correctness/noSelfAssign: Svelte reactivity; add to MonacoViewer
+	// biome-ignore lint/correctness/noSelfAssign: trigger reactivity; add to MonacoViewer
 	files = files;
 });
 </script>

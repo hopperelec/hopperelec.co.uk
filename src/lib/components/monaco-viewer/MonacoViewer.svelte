@@ -13,6 +13,16 @@ export let activeFile: undefined | MonacoFile = undefined;
 $: if (files && !activeFile) {
 	activeFile = files.find((file) => file.open);
 }
+
+function closeFile(file: MonacoFile) {
+	file.open = false;
+	if (file === activeFile) {
+		activeFile = files.find((file) => file.open);
+	} else {
+		// biome-ignore lint/correctness/noSelfAssign: Trigger reactivity
+		files = files;
+	}
+}
 </script>
 
 <div id="monaco-container">
@@ -24,7 +34,16 @@ $: if (files && !activeFile) {
     {#each files as file}
       {#if file.open}
         <li class:open={file === activeFile}>
-          <div><MonacoFilename {file}/></div>
+          <button
+            type="button"
+            on:click={() => activeFile = file}
+            class="select-btn"
+          ><MonacoFilename {file}/></button>
+          <button
+            type="button"
+            on:click={() => closeFile(file)}
+            class="close-btn"
+          >✕</button>
         </li>
       {/if}
     {/each}
@@ -34,7 +53,9 @@ $: if (files && !activeFile) {
     <ul>
       {#each files as file}
         <li>
-          <MonacoFilename {file}/>
+          <button type="button" on:click={() => file.open = true}>
+            <MonacoFilename {file}/>
+          </button>
         </li>
       {/each}
     </ul>
@@ -84,6 +105,16 @@ $: if (files && !activeFile) {
     font-weight: 400;
   }
 
+  button {
+    display: block;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    line-height: inherit;
+  }
+
   #explorer-header {
     line-height: 35px;
     padding: 0 8px;
@@ -113,31 +144,44 @@ $: if (files && !activeFile) {
     display: flex;
     line-height: 35px;
     border-bottom: var(--border);
+    cursor: pointer;
 
     & > li {
-      font-size: 13px;
-      border-right: var(--border);
+      position: relative;
+
+      /* To prevent jumping when .open border-top is added */
       border-top: 1px solid transparent;
       border-bottom: 1px solid transparent;
+        
+      & > .select-btn {
+        display: flex;
+        font-size: 13px;
+        border-right: var(--border);
+        padding-left: 10px;
+        padding-right: 26px; /* Extra space for close button */
+      }
+
+      & > .close-btn {
+        position: absolute;
+        top: 0;
+        right: 4px;
+        width: 20px;
+        text-align: center;
+        visibility: hidden;
+        font-weight: 500;
+      }
 
       &.open {
         color: white;
         border-top-color: #0078d4;
-        background-color: var(--editor-color);
 
-        /* Messy way of partially removing border from #editor-tabs */
-        &::after {
-          display: block;
-          content: "";
-          margin-top: -2px;
-          height: 2px;
+        & > .select-btn {
           background-color: var(--editor-color);
         }
       }
 
-      & > div {
-        margin-left: 10px;
-        margin-right: 28px; /* Will be X later */
+      &.open > .close-btn, &:hover > .close-btn {
+        visibility: visible;
       }
     }
   }
@@ -165,7 +209,9 @@ $: if (files && !activeFile) {
       }
     }
 
-    & > ul > li {
+    & > ul > li > button {
+      width: 100%;
+      height: 100%;
       padding-left: 13px;
     }
   }

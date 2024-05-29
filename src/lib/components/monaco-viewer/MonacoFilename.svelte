@@ -1,5 +1,5 @@
 <script lang="ts">
-import { FILE_ICONS, type MonacoFile } from "./monaco-types.ts";
+import { FILE_ICONS, type MonacoFile } from "./monaco-types";
 
 export let file: MonacoFile;
 </script>
