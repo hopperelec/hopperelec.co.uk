@@ -142,7 +142,6 @@ function closeFile(file: MonacoFile) {
   #editor-tabs {
     color: #9d9d9d;
     display: flex;
-    line-height: 35px;
     border-bottom: var(--border);
     cursor: pointer;
 
@@ -156,32 +155,44 @@ function closeFile(file: MonacoFile) {
       & > .select-btn {
         display: flex;
         font-size: 13px;
+        line-height: 35px;
         border-right: var(--border);
         padding-left: 10px;
-        padding-right: 26px; /* Extra space for close button */
+        padding-right: 28px; /* Space for close button */
       }
 
       & > .close-btn {
         position: absolute;
-        top: 0;
+        top: 8px;
         right: 4px;
         width: 20px;
-        text-align: center;
+        height: 20px;
+        border-radius: 5px;
         visibility: hidden;
         font-weight: 500;
+
+        &:hover {
+          background-color: #313232;
+        }
       }
 
       &.open {
         color: white;
         border-top-color: #0078d4;
-
-        & > .select-btn {
-          background-color: var(--editor-color);
-        }
       }
 
-      &.open > .close-btn, &:hover > .close-btn {
-        visibility: visible;
+      &.open, &:hover {
+        & > .select-btn {
+          /*
+            This also hides the bottom border.
+            This is unwanted for hovering, but I'm unsure how to fix that.
+          */
+          background-color: var(--editor-color);
+        }
+
+        & > .close-btn {
+          visibility: visible;
+        }
       }
     }
   }
@@ -213,6 +224,10 @@ function closeFile(file: MonacoFile) {
       width: 100%;
       height: 100%;
       padding-left: 13px;
+
+      &:hover {
+        background-color: #2a2d2e
+      }
     }
   }
 
