@@ -14,6 +14,11 @@ $: if (files && !activeFile) {
 	activeFile = files.find((file) => file.open);
 }
 
+function openFile(file: MonacoFile) {
+	file.open = true;
+	activeFile = file;
+}
+
 function closeFile(file: MonacoFile) {
 	file.open = false;
 	if (file === activeFile) {
@@ -53,7 +58,7 @@ function closeFile(file: MonacoFile) {
     <ul>
       {#each files as file}
         <li>
-          <button type="button" on:click={() => file.open = true}>
+          <button type="button" on:click={() => openFile(file)}>
             <MonacoFilename {file}/>
           </button>
         </li>
