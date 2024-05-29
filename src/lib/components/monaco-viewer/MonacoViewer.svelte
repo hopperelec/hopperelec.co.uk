@@ -30,6 +30,7 @@ $: if (files && !activeFile) {
     {/each}
   </ul>
   <div id="explorer">
+    <p>WORKSPACE</p>
     <ul>
       {#each files as file}
         <li>
@@ -145,6 +146,28 @@ $: if (files && !activeFile) {
     font-size: 13px;
     border-right: var(--border);
     line-height: 22px;
+
+    & > p {
+      font-size: 11px;
+      font-weight: 700;
+
+      /* Roughly re-create the dropdown icon */
+      &::before {
+        content: "";
+        display: inline-block;
+        border: solid white;
+        border-width: 0 1px 1px 0;
+        height: 6px;
+        width: 6px;
+        margin-left: 7px;
+        margin-right: 7px;
+        transform: translateY(-3px) rotate(45deg);
+      }
+    }
+
+    & > ul > li {
+      padding-left: 13px;
+    }
   }
 
   #editor {
