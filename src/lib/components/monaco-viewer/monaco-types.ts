@@ -11,6 +11,6 @@ export const FILE_ICONS: { [key: string]: string } = {
 export interface MonacoFile {
 	type: FileType;
 	name: string;
-	contents: string;
+	contents?: string;
 	open: boolean;
 }

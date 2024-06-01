@@ -10,10 +10,6 @@ import type { MonacoFile } from "./monaco-types";
 export let files: MonacoFile[];
 export let activeFile: undefined | MonacoFile = undefined;
 
-$: if (files && !activeFile) {
-	activeFile = files.find((file) => file.open);
-}
-
 function openFile(file: MonacoFile) {
 	file.open = true;
 	activeFile = file;

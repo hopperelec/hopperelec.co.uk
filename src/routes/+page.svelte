@@ -5,34 +5,31 @@ import type {
 	MonacoFile,
 } from "$lib/components/monaco-viewer/monaco-types";
 import hopperWhiteOutline from "$lib/media/hopper-white-outline.svg";
-import { onMount } from "svelte";
 import CuttingMatBackground from "./CuttingMatBackground.svelte";
 import NavBar from "./NavBar.svelte";
 
-const unimportedFiles = import.meta.glob(
-	"$lib/media/monaco-viewer/virtual-files/*",
-	{
+let activeFile: MonacoFile;
+
+const files: MonacoFile[] = Object.entries(
+	import.meta.glob("$lib/media/monaco-viewer/virtual-files/*", {
 		query: "?raw",
 		import: "default",
-	},
-);
-let files: MonacoFile[] = [];
-
-onMount(async () => {
-	for (const [path, contents] of Object.entries(unimportedFiles)) {
-		const filename = path.slice(path.lastIndexOf("/") + 1);
-		const isReadme = filename === "Preview README.md";
-		files.push({
-			name: filename,
-			type: isReadme
-				? "previewMarkdown"
-				: (filename.slice(filename.lastIndexOf(".") + 1) as FileType),
-			contents: (await contents()) as string,
-			open: isReadme,
-		});
-	}
-	// biome-ignore lint/correctness/noSelfAssign: trigger reactivity; add to MonacoViewer
-	files = files;
+	}),
+).map(([path, contentsPromise]) => {
+	const filename = path.slice(path.lastIndexOf("/") + 1);
+	const isReadme = filename === "Preview README.md";
+	const file: MonacoFile = {
+		name: filename,
+		type: isReadme
+			? "previewMarkdown"
+			: (filename.slice(filename.lastIndexOf(".") + 1) as FileType),
+		open: isReadme,
+	};
+	contentsPromise().then((contents) => {
+		file.contents = contents as string;
+		if (isReadme && !activeFile) activeFile = file;
+	});
+	return file;
 });
 </script>
 
@@ -43,7 +40,7 @@ onMount(async () => {
       <img src={hopperWhiteOutline} alt="transparent hopper logo"/>
     </section>
     <section id="projects">
-      <MonacoViewer {files}/>
+      <MonacoViewer {files} {activeFile}/>
     </section>
     <section id="contact">
       <h2>Contact Me</h2>
