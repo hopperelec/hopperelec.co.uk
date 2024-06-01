@@ -61,7 +61,7 @@ function closeFile(file: MonacoFile) {
       {/each}
     </ul>
   </div>
-  <div id="editor">
+  <div id="editor" class:markdown={activeFile && activeFile.type === "previewMarkdown"}>
     {#if activeFile}
       {#if activeFile.type === "previewMarkdown"}
         <SvelteMarkdown source={activeFile.contents}/>
@@ -70,6 +70,11 @@ function closeFile(file: MonacoFile) {
       {:else}
         <Highlight language={activeFile.type} code={activeFile.contents}/>
       {/if}
+      <!--
+        I also want to add line numbers, but it's hard to integrate this with highlight-svelte.
+        highlight-svelte has a <LineNumbers/> element, but it's styling doesn't match VSCode's at all
+        meaning I'd basically need to re-write it all.
+      -->
     {/if}
   </div>
 </div>
@@ -77,8 +82,16 @@ function closeFile(file: MonacoFile) {
 <!-- Override some svelte-highlight styles -->
 <svelte:head>
   <style>
-    pre {
+    #editor > pre {
       margin: 0;
+    }
+
+    #editor > pre > code {
+        /*
+          22px on top for breadcrumbs
+          68px on left for line numbers
+        */
+        padding: 22px 0 0 68px !important;
     }
   </style>
 </svelte:head>
@@ -237,6 +250,9 @@ function closeFile(file: MonacoFile) {
     overflow-y: auto; /* Could be replaced with Monaco scrollbar */
     user-select: text;
 
-    /* FOR MARKDOWN: text-wrap: wrap; */
+    &.markdown {
+      text-wrap: wrap;
+      padding: 14px 52px;
+    }
   }
 </style>
