@@ -82,6 +82,7 @@ function closeFile(file: MonacoFile) {
 <!-- Override some svelte-highlight styles -->
 <svelte:head>
   <style>
+    /* stylelint-disable csstools/use-nesting */
     #editor > pre {
       margin: 0;
     }
@@ -93,6 +94,7 @@ function closeFile(file: MonacoFile) {
         */
         padding: 22px 0 0 68px !important;
     }
+    /* stylelint-enable csstools/use-nesting */
   </style>
 </svelte:head>
 
