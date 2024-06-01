@@ -1,28 +1,34 @@
 <script lang="ts">
 import MonacoViewer from "$lib/components/monaco-viewer/MonacoViewer.svelte";
-import {
-	EXTS_TO_TYPE,
-	type MonacoFile,
+import type {
+	FileType,
+	MonacoFile,
 } from "$lib/components/monaco-viewer/monaco-types";
 import hopperWhiteOutline from "$lib/media/hopper-white-outline.svg";
 import { onMount } from "svelte";
 import CuttingMatBackground from "./CuttingMatBackground.svelte";
 import NavBar from "./NavBar.svelte";
 
-const unimportedFiles = import.meta.glob("$lib/media/monaco-files/*", {
-	query: "?raw",
-	import: "default",
-});
+const unimportedFiles = import.meta.glob(
+	"$lib/media/monaco-viewer/virtual-files/*",
+	{
+		query: "?raw",
+		import: "default",
+	},
+);
 let files: MonacoFile[] = [];
 
 onMount(async () => {
 	for (const [path, contents] of Object.entries(unimportedFiles)) {
 		const filename = path.slice(path.lastIndexOf("/") + 1);
+		const isReadme = filename === "Preview README.md";
 		files.push({
-			type: EXTS_TO_TYPE[filename.slice(filename.lastIndexOf(".") + 1)],
 			name: filename,
+			type: isReadme
+				? "previewMarkdown"
+				: (filename.slice(filename.lastIndexOf(".") + 1) as FileType),
 			contents: (await contents()) as string,
-			open: filename === "README.md",
+			open: isReadme,
 		});
 	}
 	// biome-ignore lint/correctness/noSelfAssign: trigger reactivity; add to MonacoViewer

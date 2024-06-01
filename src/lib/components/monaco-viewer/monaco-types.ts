@@ -1,15 +1,11 @@
-import PreviewIcon from "$lib/components/monaco-viewer/preview.svg";
+import PreviewIcon from "$lib/media/monaco-viewer/icons/preview.svg";
+import SvelteIcon from "$lib/media/monaco-viewer/icons/svelte.svg";
 
-export type FileType = "markdown" | "svelte";
+export type FileType = "previewMarkdown" | "svelte";
 
-export const EXTS_TO_TYPE: { [key: string]: FileType } = {
-	svelte: "svelte",
-	md: "markdown",
-};
-
-export const FILE_ICONS: { [key in FileType]: string } = {
-	markdown: PreviewIcon,
-	svelte: PreviewIcon,
+export const FILE_ICONS: { [key: string]: string } = {
+	previewMarkdown: PreviewIcon,
+	svelte: SvelteIcon,
 };
 
 export interface MonacoFile {

@@ -67,7 +67,7 @@ function closeFile(file: MonacoFile) {
   </div>
   <div id="editor">
     {#if activeFile}
-      {#if activeFile.type === "markdown"}
+      {#if activeFile.type === "previewMarkdown"}
         <SvelteMarkdown source={activeFile.contents}/>
       {:else if activeFile.type === "svelte"}
         <HighlightSvelte code={activeFile.contents}/>
