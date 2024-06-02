@@ -1,4 +1,5 @@
 <script>
+import HopperIcon from "$lib/components/hopper-logo/HopperIcon.svelte";
 import CuttingMatBackground from "./CuttingMatBackground.svelte";
 import NavBar from "./NavBar.svelte";
 </script>
@@ -7,7 +8,7 @@ import NavBar from "./NavBar.svelte";
   <NavBar/>
   <main>
     <section>
-      <enhanced:img src="$lib/media/hopper-white-outline.svg" alt="transparent hopper logo"/>
+      <HopperIcon fillColor="#646464" outlineColor="#fff" outlineWidth={6} typeOf3D="stroke" padding={{top: 3, right: 3, bottom: 3, left: 3}}/>
     </section>
     <section id="projects">
       <p>This will be a Monaco editor</p>
@@ -18,6 +19,15 @@ import NavBar from "./NavBar.svelte";
   </main>
 </CuttingMatBackground>
 
+<svelte:head>
+  <style>
+    section:first-child > svg {
+      width: 50%;
+      height: 50%;
+    }
+  </style>
+</svelte:head>
+
 <style lang="scss">
 section:first-child {
   height: 80vh;
@@ -25,11 +35,6 @@ section:first-child {
   align-items: center;
   justify-content: center;
   filter: drop-shadow(0 0 32px black);
-
-  & > img {
-    max-width: 50%;
-    max-height: 50%;
-  }
 }
 
 #projects {
