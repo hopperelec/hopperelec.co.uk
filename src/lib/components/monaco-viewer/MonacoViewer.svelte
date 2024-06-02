@@ -86,6 +86,7 @@ function closeFile(file: MonacoFile) {
     #editor > pre {
       margin: 0;
       height: calc(100% - 22px);
+        
       /*
         22px on top for breadcrumbs
         68px on left for line numbers
