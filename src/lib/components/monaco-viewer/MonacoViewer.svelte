@@ -1,13 +1,13 @@
 <!-- This is not the actual monaco editor; it is just styled to look like it -->
 
 <script lang="ts">
-import SvelteMarkdown from "svelte-markdown";
-import MonacoFilename from "./MonacoFilename.svelte";
-import "svelte-highlight/styles/vs2015.css";
-import { Highlight, HighlightSvelte } from "svelte-highlight";
-import type { MonacoFile } from "./monaco-types";
+  import SvelteMarkdown from "svelte-markdown";
+  import MonacoFilename from "./MonacoFilename.svelte";
+  import "svelte-highlight/styles/vs2015.css";
+  import { Highlight, HighlightSvelte } from "svelte-highlight";
+  import type { MonacoFile } from "./monaco-types";
 
-export let files: MonacoFile[];
+  export let files: MonacoFile[];
 export let activeFile: undefined | MonacoFile = undefined;
 
 function openFile(file: MonacoFile) {
@@ -104,163 +104,163 @@ function closeFile(file: MonacoFile) {
 </svelte:head>
 
 <style>
-  #monaco-container {
-    height: 100%;
-    overflow-x: auto;
-    display: grid;
-    grid-auto-rows: 35px 1fr;
-    grid-template-columns: 300px 1fr;
-    background-color: #181818;
-    user-select: none;
-    font-family: "Segoe WPC", "Segoe UI", sans-serif;
-    color: #ccc;
-    border-top: var(--border);
-    border-bottom: var(--border);
-    text-wrap: nowrap;
-    text-overflow: ellipsis;
-    --border: 1px solid #2b2b2b;
-    --editor-color: #1f1f1f;
+#monaco-container {
+  height: 100%;
+  overflow-x: auto;
+  display: grid;
+  grid-auto-rows: 35px 1fr;
+  grid-template-columns: 300px 1fr;
+  background-color: #181818;
+  user-select: none;
+  font-family: "Segoe WPC", "Segoe UI", sans-serif;
+  color: #ccc;
+  border-top: var(--border);
+  border-bottom: var(--border);
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  --border: 1px solid #2b2b2b;
+  --editor-color: #1f1f1f;
+}
+
+h3, span {
+  font-weight: 400;
+}
+
+button {
+  display: block;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: inherit;
+}
+
+#explorer-header {
+  line-height: 35px;
+  padding: 0 8px;
+  display: flex;
+  border-right: var(--border);
+
+  h3 {
+    flex: 1;
+    font-size: 11px;
+    padding-left: 12px;
   }
 
-  h3, span {
-    font-weight: 400;
+  span {
+    float: right;
+    padding-right: 9px;
+    font-size: 16px;
   }
+}
 
-  button {
-    display: block;
-    color: inherit;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    line-height: inherit;
-  }
+ul {
+  list-style: none;
+  padding: 0;
+}
 
-  #explorer-header {
-    line-height: 35px;
-    padding: 0 8px;
-    display: flex;
-    border-right: var(--border);
+#editor-tabs {
+  color: #9d9d9d;
+  display: flex;
+  border-bottom: var(--border);
+  cursor: pointer;
+  min-width: 500px;
 
-    h3 {
-      flex: 1;
-      font-size: 11px;
-      padding-left: 12px;
+  & > li {
+    position: relative;
+
+    /* To prevent jumping when .open border-top is added */
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+
+    & > .select-btn {
+      display: flex;
+      font-size: 13px;
+      line-height: 35px;
+      border-right: var(--border);
+      padding-left: 10px;
+      padding-right: 28px; /* Space for close button */
     }
 
-    span {
-      float: right;
-      padding-right: 9px;
-      font-size: 16px;
+    & > .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 4px;
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      visibility: hidden;
+      font-weight: 500;
+
+      &:hover {
+        background-color: #313232;
+      }
     }
-  }
 
-  ul {
-    list-style: none;
-    padding: 0;
-  }
+    &.open {
+      color: white;
+      border-top-color: #0078d4;
+    }
 
-  #editor-tabs {
-    color: #9d9d9d;
-    display: flex;
-    border-bottom: var(--border);
-    cursor: pointer;
-    min-width: 500px;
-
-    & > li {
-      position: relative;
-
-      /* To prevent jumping when .open border-top is added */
-      border-top: 1px solid transparent;
-      border-bottom: 1px solid transparent;
-        
+    &.open, &:hover {
       & > .select-btn {
-        display: flex;
-        font-size: 13px;
-        line-height: 35px;
-        border-right: var(--border);
-        padding-left: 10px;
-        padding-right: 28px; /* Space for close button */
+        /*
+          This also hides the bottom border.
+          This is unwanted for hovering, but I'm unsure how to fix that.
+        */
+        background-color: var(--editor-color);
       }
 
       & > .close-btn {
-        position: absolute;
-        top: 8px;
-        right: 4px;
-        width: 20px;
-        height: 20px;
-        border-radius: 5px;
-        visibility: hidden;
-        font-weight: 500;
-
-        &:hover {
-          background-color: #313232;
-        }
-      }
-
-      &.open {
-        color: white;
-        border-top-color: #0078d4;
-      }
-
-      &.open, &:hover {
-        & > .select-btn {
-          /*
-            This also hides the bottom border.
-            This is unwanted for hovering, but I'm unsure how to fix that.
-          */
-          background-color: var(--editor-color);
-        }
-
-        & > .close-btn {
-          visibility: visible;
-        }
+        visibility: visible;
       }
     }
   }
+}
 
-  #explorer {
-    font-size: 13px;
-    border-right: var(--border);
-    line-height: 22px;
+#explorer {
+  font-size: 13px;
+  border-right: var(--border);
+  line-height: 22px;
 
-    & > p {
-      font-size: 11px;
-      font-weight: 700;
+  & > p {
+    font-size: 11px;
+    font-weight: 700;
 
-      /* Roughly re-create the dropdown icon */
-      &::before {
-        content: "";
-        display: inline-block;
-        border: solid white;
-        border-width: 0 1px 1px 0;
-        height: 6px;
-        width: 6px;
-        margin-left: 7px;
-        margin-right: 7px;
-        transform: translateY(-3px) rotate(45deg);
-      }
-    }
-
-    & > ul > li > button {
-      width: 100%;
-      height: 100%;
-      padding-left: 13px;
-
-      &:hover {
-        background-color: #2a2d2e
-      }
+    /* Roughly re-create the dropdown icon */
+    &::before {
+      content: "";
+      display: inline-block;
+      border: solid white;
+      border-width: 0 1px 1px 0;
+      height: 6px;
+      width: 6px;
+      margin-left: 7px;
+      margin-right: 7px;
+      transform: translateY(-3px) rotate(45deg);
     }
   }
 
-  #editor {
-    background-color: var(--editor-color);
-    overflow-y: auto; /* Could be replaced with Monaco scrollbar */
-    user-select: text;
+  & > ul > li > button {
+    width: 100%;
+    height: 100%;
+    padding-left: 13px;
 
-    &.markdown {
-      text-wrap: wrap;
-      padding: 14px 52px;
+    &:hover {
+      background-color: #2a2d2e
     }
   }
+}
+
+#editor {
+  background-color: var(--editor-color);
+  overflow-y: auto; /* Could be replaced with Monaco scrollbar */
+  user-select: text;
+
+  &.markdown {
+    text-wrap: wrap;
+    padding: 14px 52px;
+  }
+}
 </style>

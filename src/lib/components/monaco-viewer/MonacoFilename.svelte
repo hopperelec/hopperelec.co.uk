@@ -9,20 +9,20 @@ export let file: MonacoFile;
 </div>
 
 <style lang="scss">
-  div {
-    display: flex;
+div {
+  display: flex;
 
-    &::before {
-      content: "";
-      width: 16px;
-      padding-right: 6px;
-      background-image: var(--icon);
-      background-position-y: 50%;
-      background-repeat: no-repeat;
-    }
+  &::before {
+    content: "";
+    width: 16px;
+    padding-right: 6px;
+    background-image: var(--icon);
+    background-position-y: 50%;
+    background-repeat: no-repeat;
   }
+}
 
-  h4 {
-    font-weight: 400;
-  }
+h4 {
+  font-weight: 400;
+}
 </style>
