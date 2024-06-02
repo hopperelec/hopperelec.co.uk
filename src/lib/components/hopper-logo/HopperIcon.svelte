@@ -8,7 +8,7 @@ import type {
 	TYPE_OF_3D,
 } from "$lib/components/hopper-logo/types";
 
-export let scale = 1;
+export let scale: null | number = 1;
 export let padding: PADDING = undefined;
 export let backgroundColor: boolean | string = false;
 export let fillColor = "#404040";
@@ -70,7 +70,7 @@ $: if (eyes && _padding) {
 <svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 {width} {height}"
-  width="{width * scale}" height="{height * scale}"
+  width="{scale ? width * scale : undefined}" height="{scale ? height * scale : undefined}"
 >
   {#if shadowLength || typeOf3D === "gaps"}
     <defs>
