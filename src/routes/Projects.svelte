@@ -1,29 +1,32 @@
 <script lang="ts">
-  import MonacoViewer from "$lib/components/monaco-viewer/MonacoViewer.svelte";
-  import type { FileType, MonacoFile } from "$lib/components/monaco-viewer/monaco-types.js";
+import MonacoViewer from "$lib/components/monaco-viewer/MonacoViewer.svelte";
+import type {
+	FileType,
+	MonacoFile,
+} from "$lib/components/monaco-viewer/monaco-types.js";
 
-  let activeFile: MonacoFile;
+let activeFile: MonacoFile;
 
 const files: MonacoFile[] = Object.entries(
-  import.meta.glob("$lib/media/monaco-viewer/virtual-files/*", {
-    query: "?raw",
-    import: "default",
-  }),
+	import.meta.glob("$lib/media/monaco-viewer/virtual-files/*", {
+		query: "?raw",
+		import: "default",
+	}),
 ).map(([path, contentsPromise]) => {
-  const filename = path.slice(path.lastIndexOf("/") + 1);
-  const isReadme = filename === "Preview README.md";
-  const file: MonacoFile = {
-    name: filename,
-    type: isReadme
-      ? "previewMarkdown"
-      : (filename.slice(filename.lastIndexOf(".") + 1) as FileType),
-  open: isReadme,
-};
-  contentsPromise().then((contents) => {
-    file.contents = contents as string;
-    if (isReadme && !activeFile) activeFile = file;
-  });
-  return file;
+	const filename = path.slice(path.lastIndexOf("/") + 1);
+	const isReadme = filename === "Preview README.md";
+	const file: MonacoFile = {
+		name: filename,
+		type: isReadme
+			? "previewMarkdown"
+			: (filename.slice(filename.lastIndexOf(".") + 1) as FileType),
+		open: isReadme,
+	};
+	contentsPromise().then((contents) => {
+		file.contents = contents as string;
+		if (isReadme && !activeFile) activeFile = file;
+	});
+	return file;
 });
 </script>
 

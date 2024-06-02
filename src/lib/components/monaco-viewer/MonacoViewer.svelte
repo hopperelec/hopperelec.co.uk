@@ -1,13 +1,13 @@
 <!-- This is not the actual monaco editor; it is just styled to look like it -->
 
 <script lang="ts">
-  import SvelteMarkdown from "svelte-markdown";
-  import MonacoFilename from "./MonacoFilename.svelte";
-  import "svelte-highlight/styles/vs2015.css";
-  import { Highlight, HighlightSvelte } from "svelte-highlight";
-  import type { MonacoFile } from "./monaco-types";
+import SvelteMarkdown from "svelte-markdown";
+import MonacoFilename from "./MonacoFilename.svelte";
+import "svelte-highlight/styles/vs2015.css";
+import { Highlight, HighlightSvelte } from "svelte-highlight";
+import type { MonacoFile } from "./monaco-types";
 
-  export let files: MonacoFile[];
+export let files: MonacoFile[];
 export let activeFile: undefined | MonacoFile = undefined;
 
 function openFile(file: MonacoFile) {
