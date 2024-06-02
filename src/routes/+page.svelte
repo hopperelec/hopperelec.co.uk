@@ -49,6 +49,10 @@ const files: MonacoFile[] = Object.entries(
 </CuttingMatBackground>
 
 <style lang="scss">
+:global(body) {
+  overflow-x: hidden;
+}
+
 section:first-child {
   height: 80vh;
   display: flex;

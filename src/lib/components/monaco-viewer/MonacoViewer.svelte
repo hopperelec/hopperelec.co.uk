@@ -85,14 +85,18 @@ function closeFile(file: MonacoFile) {
     /* stylelint-disable csstools/use-nesting */
     #editor > pre {
       margin: 0;
+      height: calc(100% - 22px);
+      /*
+        22px on top for breadcrumbs
+        68px on left for line numbers
+      */
+      padding: 22px 0 0 68px;
     }
 
     #editor > pre > code {
-        /*
-          22px on top for breadcrumbs
-          68px on left for line numbers
-        */
-        padding: 22px 0 0 68px !important;
+      height: 100%;
+      padding: 0 !important;
+      background: none;
     }
     /* stylelint-enable csstools/use-nesting */
   </style>
@@ -101,10 +105,10 @@ function closeFile(file: MonacoFile) {
 <style>
   #monaco-container {
     height: 100%;
-    width: 100%;
+    overflow-x: auto;
     display: grid;
     grid-auto-rows: 35px 1fr;
-    grid-template-columns: minmax(min-content, 300px) 1fr;
+    grid-template-columns: 300px 1fr;
     background-color: #181818;
     user-select: none;
     font-family: "Segoe WPC", "Segoe UI", sans-serif;
@@ -160,6 +164,7 @@ function closeFile(file: MonacoFile) {
     display: flex;
     border-bottom: var(--border);
     cursor: pointer;
+    min-width: 500px;
 
     & > li {
       position: relative;
