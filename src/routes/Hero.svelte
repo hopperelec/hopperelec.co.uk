@@ -22,18 +22,8 @@ const rollingText: [
 	["develop", "Minecraft plugins", "with", { text: "Java", color: "#5382a1" }],
 	["contribute to", "open-source"],
 	["stream", "Bedwars", "on", { text: "YouTube", color: "red" }],
-	[
-		"make",
-		undefined,
-		undefined,
-		{ text: "Minecraft servers", color: "lime" },
-	],
-	[
-		"administrate",
-		undefined,
-		undefined,
-		{ text: "Minecraft servers", color: "lime" },
-	],
+	["make", undefined, undefined, { text: "Minecraft servers", color: "lime" }],
+	["host", undefined, undefined, { text: "Minecraft servers", color: "lime" }],
 	[
 		"administrate",
 		undefined,
