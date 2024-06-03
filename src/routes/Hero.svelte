@@ -23,16 +23,16 @@ const rollingText: [
 	["contribute to", "open-source"],
 	["stream", "Bedwars", "on", { text: "YouTube", color: "red" }],
 	[
-		"administrate",
+		"make",
 		undefined,
 		undefined,
-		{ text: "Minecraft servers", color: "green" },
+		{ text: "Minecraft servers", color: "lime" },
 	],
 	[
 		"administrate",
 		undefined,
 		undefined,
-		{ text: "Minecraft servers", color: "green" },
+		{ text: "Minecraft servers", color: "lime" },
 	],
 	[
 		"administrate",
