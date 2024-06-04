@@ -6,4 +6,6 @@ button {
     cursor: pointer;
     padding: 0;
     line-height: inherit;
+    font-size: 13px;
+    font-family: inherit;
 }

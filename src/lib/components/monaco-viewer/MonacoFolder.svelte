@@ -13,52 +13,72 @@ export let openFile: (file: MonacoFile) => void;
 export let nesting = 1;
 </script>
 
-<p>{name}</p>
-<ul style:--nesting={nesting}>
-  {#each Object.entries(folder.subFolders) as [subFolderName, subFolder]}
-    <MonacoFolderComponent name={subFolderName} folder={subFolder} {openFile} nesting={nesting+1}/>
-  {/each}
-  {#each folder.files as file}
-    <li>
-      <button type="button" on:click={() => openFile(file)}>
-        <MonacoFilename {file}/>
-      </button>
-    </li>
-  {/each}
-</ul>
+<div id="folder" class:open={folder.open} style:--nesting={nesting} class:root={nesting === 1}>
+  <button type="button" on:click={() => folder.open = !folder.open}>{name}</button>
+  <ul>
+    {#each Object.entries(folder.subFolders) as [subFolderName, subFolder]}
+      <MonacoFolderComponent name={subFolderName} folder={subFolder} {openFile} nesting={nesting+1}/>
+    {/each}
+    {#each folder.files as file}
+      <li>
+        <button type="button" on:click={() => openFile(file)}>
+          <MonacoFilename {file}/>
+        </button>
+      </li>
+    {/each}
+  </ul>
+</div>
 
 <style lang="scss">
-ul {
-  list-style: none;
-  padding: 0;
-
-  & > li > button {
-    width: 100%;
-    height: 100%;
-    padding-left: calc(5px + var(--nesting) * 8px);
-
-    &:hover {
-        background-color: #2a2d2e
-    }
-  }
+li > button {
+  width: 100%;
+  height: 100%;
+  padding-left: calc(5px + var(--nesting) * 8px);
 }
 
-p {
-  font-size: 11px;
-  font-weight: 700;
-  padding-left: calc(var(--nesting) * 8px);
+button:hover {
+  background-color: #2a2d2e;
+}
 
-  /* Roughly re-create the dropdown icon */
-  &::before {
+ul {
+  display: none;
+  list-style: none;
+  padding: 0;
+}
+
+#folder {
+  & > button {
+    width: 100%;
+    padding-left: calc(var(--nesting) * 8px);
+    text-align: left;
+
+    /* Roughly re-create the dropdown icon */
+    &::before {
       content: "";
       display: inline-block;
       border: solid white;
-      border-width: 0 1px 1px 0;
+      border-width: 1px 1px 0 0;
       height: 6px;
       width: 6px;
       margin-left: 7px;
       margin-right: 7px;
       transform: translateY(-3px) rotate(45deg);
+    }
+  }
+
+  &.root > button {
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  &.open {
+    & > button::before {
+      border-width: 0 1px 1px 0;
+    }
+
+    & > ul {
+      display: block;
+    }
   }
 }
 </style>

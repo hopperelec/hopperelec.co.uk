@@ -222,7 +222,6 @@ h3, span {
 }
 
 #explorer {
-  font-size: 13px;
   border-right: var(--border);
   line-height: 22px;
 }
