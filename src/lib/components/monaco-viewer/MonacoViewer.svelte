@@ -4,11 +4,39 @@
 import SvelteMarkdown from "svelte-markdown";
 import MonacoFilename from "./MonacoFilename.svelte";
 import "svelte-highlight/styles/vs2015.css";
+import "./button-reset.css";
+import MonacoFolderComponent from "$lib/components/monaco-viewer/MonacoFolder.svelte";
 import { Highlight, HighlightSvelte } from "svelte-highlight";
-import type { MonacoFile } from "./monaco-types";
+import {
+	type MonacoFile,
+	type MonacoFolder,
+	SVELTE_HIGHLIGHT_LANGUAGES,
+} from "./monaco-types";
 
 export let files: MonacoFile[];
 export let activeFile: undefined | MonacoFile = undefined;
+
+let rootFolder: MonacoFolder = {
+	files: [],
+	subFolders: {},
+	open: true,
+};
+
+$: for (const file of files) {
+	let folder = rootFolder;
+	for (const pathFolder of file.path.split("/").slice(0, -1)) {
+		if (pathFolder in folder.subFolders) {
+			folder = folder.subFolders[pathFolder];
+		} else {
+			folder.subFolders[pathFolder] = folder = {
+				files: [],
+				subFolders: {},
+				open: false,
+			};
+		}
+	}
+	folder.files.push(file);
+}
 
 function openFile(file: MonacoFile) {
 	file.open = true;
@@ -50,16 +78,7 @@ function closeFile(file: MonacoFile) {
     {/each}
   </ul>
   <div id="explorer">
-    <p>WORKSPACE</p>
-    <ul>
-      {#each files as file}
-        <li>
-          <button type="button" on:click={() => openFile(file)}>
-            <MonacoFilename {file}/>
-          </button>
-        </li>
-      {/each}
-    </ul>
+    <MonacoFolderComponent name="WORKSPACE" folder={rootFolder} {openFile}/>
   </div>
   <div id="editor" class:markdown={activeFile && activeFile.type === "previewMarkdown"}>
     {#if activeFile}
@@ -67,8 +86,10 @@ function closeFile(file: MonacoFile) {
         <SvelteMarkdown source={activeFile.contents}/>
       {:else if activeFile.type === "svelte"}
         <HighlightSvelte code={activeFile.contents}/>
+      {:else if activeFile.type in SVELTE_HIGHLIGHT_LANGUAGES}
+        <Highlight language={SVELTE_HIGHLIGHT_LANGUAGES[activeFile.type]} code={activeFile.contents}/>
       {:else}
-        <Highlight language={activeFile.type} code={activeFile.contents}/>
+        {activeFile.contents}
       {/if}
       <!--
         I also want to add line numbers, but it's hard to integrate this with highlight-svelte.
@@ -86,12 +107,6 @@ function closeFile(file: MonacoFile) {
     #editor > pre {
       margin: 0;
       height: calc(100% - 22px);
-        
-      /*
-        22px on top for breadcrumbs
-        68px on left for line numbers
-      */
-      padding: 22px 0 0 68px;
     }
 
     #editor > pre > code {
@@ -126,16 +141,6 @@ h3, span {
   font-weight: 400;
 }
 
-button {
-  display: block;
-  color: inherit;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  line-height: inherit;
-}
-
 #explorer-header {
   line-height: 35px;
   padding: 0 8px;
@@ -155,17 +160,14 @@ button {
   }
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-}
-
 #editor-tabs {
   color: #9d9d9d;
   display: flex;
   border-bottom: var(--border);
   cursor: pointer;
   min-width: 500px;
+  list-style: none;
+  padding: 0;
 
   & > li {
     position: relative;
@@ -223,40 +225,18 @@ ul {
   font-size: 13px;
   border-right: var(--border);
   line-height: 22px;
-
-  & > p {
-    font-size: 11px;
-    font-weight: 700;
-
-    /* Roughly re-create the dropdown icon */
-    &::before {
-      content: "";
-      display: inline-block;
-      border: solid white;
-      border-width: 0 1px 1px 0;
-      height: 6px;
-      width: 6px;
-      margin-left: 7px;
-      margin-right: 7px;
-      transform: translateY(-3px) rotate(45deg);
-    }
-  }
-
-  & > ul > li > button {
-    width: 100%;
-    height: 100%;
-    padding-left: 13px;
-
-    &:hover {
-      background-color: #2a2d2e
-    }
-  }
 }
 
 #editor {
   background-color: var(--editor-color);
   overflow-y: auto; /* Could be replaced with Monaco scrollbar */
   user-select: text;
+
+  /*
+    22px on top for breadcrumbs
+    68px on left for line numbers
+  */
+  padding: 22px 0 0 68px;
 
   &.markdown {
     text-wrap: wrap;

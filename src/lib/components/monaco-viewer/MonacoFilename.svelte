@@ -4,7 +4,7 @@ import { FILE_ICONS, type MonacoFile } from "./monaco-types";
 export let file: MonacoFile;
 </script>
 
-<div style:--icon={`url("${FILE_ICONS[file.type]}")`}>
+<div style:--icon={`url("${FILE_ICONS[file.type] || FILE_ICONS["_default"]}")`}>
   <h4>{file.name}</h4>
 </div>
 

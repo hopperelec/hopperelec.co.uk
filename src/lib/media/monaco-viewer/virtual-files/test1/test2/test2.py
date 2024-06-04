@@ -1,0 +1,1 @@
+print("This is the second sub-folder test file, as well as a test for using svelte-highlight with languages other than Svelte")

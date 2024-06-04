@@ -1,30 +1,30 @@
 <script lang="ts">
 import MonacoViewer from "$lib/components/monaco-viewer/MonacoViewer.svelte";
-import type {
-	FileType,
-	MonacoFile,
-} from "$lib/components/monaco-viewer/monaco-types.js";
+import type { MonacoFile } from "$lib/components/monaco-viewer/monaco-types.js";
 
 let activeFile: MonacoFile;
 
+const PATH_REGEX = RegExp(/\/virtual-files\/(.*?)([^\/]+?(\.([^\/.]+))?)$/);
 const files: MonacoFile[] = Object.entries(
-	import.meta.glob("$lib/media/monaco-viewer/virtual-files/*", {
+	import.meta.glob("$lib/media/monaco-viewer/virtual-files/**/*", {
 		query: "?raw",
 		import: "default",
 	}),
-).map(([path, contentsPromise]) => {
-	const filename = path.slice(path.lastIndexOf("/") + 1);
-	const isReadme = filename === "Preview README.md";
+).map(([originalPathFilename, contentsPromise]) => {
+	const [trimmedPathFilename, virtualPath, filename, _, extension] =
+		PATH_REGEX.exec(originalPathFilename) as RegExpExecArray;
 	const file: MonacoFile = {
 		name: filename,
-		type: isReadme
-			? "previewMarkdown"
-			: (filename.slice(filename.lastIndexOf(".") + 1) as FileType),
-		open: isReadme,
+		path: virtualPath,
+		type:
+			filename.startsWith("Preview ") && extension === "md"
+				? "previewMarkdown"
+				: extension,
+		open: trimmedPathFilename === "/virtual-files/Preview README.md",
 	};
 	contentsPromise().then((contents) => {
 		file.contents = contents as string;
-		if (isReadme && !activeFile) activeFile = file;
+		if (file.open && !activeFile) activeFile = file;
 	});
 	return file;
 });
