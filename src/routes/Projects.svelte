@@ -15,8 +15,10 @@ const files: MonacoFile[] = Object.entries(
 		import: "default",
 	}),
 ).map(([originalPathFilename, contentsPromise]) => {
-	const [trimmedPathFilename, virtualPath, filename, _, extension] =
+	let [trimmedPathFilename, virtualPath, filename, _, extension] =
 		PATH_REGEX.exec(originalPathFilename) as RegExpExecArray;
+	// SvelteKit prevents importing files ending with "server.ts", so I add an underscore to the filenames
+	filename = filename.replace(/_server\.ts$/, "server.ts"); // Remove that underscore, if it exists
 	const file: MonacoFile = {
 		name: filename,
 		path: virtualPath,
