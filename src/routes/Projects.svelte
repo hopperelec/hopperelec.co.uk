@@ -1,6 +1,10 @@
 <script lang="ts">
 import MonacoViewer from "$lib/components/monaco-viewer/MonacoViewer.svelte";
-import type { MonacoFile } from "$lib/components/monaco-viewer/monaco-types.js";
+import {
+	type MonacoFile,
+	chooseFileIcon,
+	chooseHighlightType,
+} from "$lib/components/monaco-viewer/monaco-types.js";
 
 let activeFile: MonacoFile;
 
@@ -16,10 +20,8 @@ const files: MonacoFile[] = Object.entries(
 	const file: MonacoFile = {
 		name: filename,
 		path: virtualPath,
-		type:
-			filename.startsWith("Preview ") && extension === "md"
-				? "previewMarkdown"
-				: extension,
+		highlight_type: chooseHighlightType(filename, extension),
+		icon: chooseFileIcon(filename, extension),
 		open: trimmedPathFilename === "/virtual-files/Preview README.md",
 	};
 	contentsPromise().then((contents) => {

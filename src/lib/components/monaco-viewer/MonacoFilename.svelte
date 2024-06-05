@@ -1,10 +1,10 @@
 <script lang="ts">
-import { FILE_ICONS, type MonacoFile } from "./monaco-types";
+import type { MonacoFile } from "./monaco-types";
 
 export let file: MonacoFile;
 </script>
 
-<div style:--icon={`url("${FILE_ICONS[file.type] || FILE_ICONS["_default"]}")`}>
+<div style:--icon={`url("${file.icon}")`}>
   <h4>{file.name}</h4>
 </div>
 

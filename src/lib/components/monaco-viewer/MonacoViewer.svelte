@@ -34,6 +34,7 @@ $: for (const file of files) {
 				open: false,
 			};
 		}
+		if (file.open) folder.open = true;
 	}
 	folder.files.push(file);
 }
@@ -80,16 +81,16 @@ function closeFile(file: MonacoFile) {
   <div id="explorer">
     <MonacoFolderComponent name="WORKSPACE" folder={rootFolder} {openFile}/>
   </div>
-  <div id="editor" class:markdown={activeFile && activeFile.type === "previewMarkdown"}>
+  <div id="editor" class:markdown={activeFile && activeFile.highlight_type === "markdown_preview"}>
     {#if activeFile}
-      {#if activeFile.type === "previewMarkdown"}
-        <SvelteMarkdown source={activeFile.contents}/>
-      {:else if activeFile.type === "svelte"}
-        <HighlightSvelte code={activeFile.contents}/>
-      {:else if activeFile.type in SVELTE_HIGHLIGHT_LANGUAGES}
-        <Highlight language={SVELTE_HIGHLIGHT_LANGUAGES[activeFile.type]} code={activeFile.contents}/>
-      {:else}
+      {#if activeFile.highlight_type === "raw"}
         {activeFile.contents}
+      {:else if activeFile.highlight_type === "markdown_preview"}
+        <SvelteMarkdown source={activeFile.contents}/>
+      {:else if activeFile.highlight_type === "svelte"}
+        <HighlightSvelte code={activeFile.contents}/>
+      {:else}
+        <Highlight language={SVELTE_HIGHLIGHT_LANGUAGES[activeFile.highlight_type]} code={activeFile.contents}/>
       {/if}
       <!--
         I also want to add line numbers, but it's hard to integrate this with highlight-svelte.
@@ -168,6 +169,7 @@ h3, span {
   min-width: 500px;
   list-style: none;
   padding: 0;
+  overflow: auto hidden; /* The horizontal scrollbar is too thick, but it's better than the entire viewer scrolling */
 
   & > li {
     position: relative;
@@ -224,6 +226,7 @@ h3, span {
 #explorer {
   border-right: var(--border);
   line-height: 22px;
+  overflow-y: auto;
 }
 
 #editor {

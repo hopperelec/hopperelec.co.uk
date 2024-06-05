@@ -1,1 +1,0 @@
-This is the first sub-folder test file, as well as a test for not an un-highlighted file
