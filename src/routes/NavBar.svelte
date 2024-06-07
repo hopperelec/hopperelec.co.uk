@@ -29,7 +29,7 @@ nav {
   font-weight: bold;
   font-family: "Roboto Mono", monospace, sans-serif;
 
-  /* Hard-coded based on nav width, there might be a more responsive solution */
+  /* Magic number based on nav width, there might be a more responsive solution */
   @media (width <= 484px) {
     font-size: 4.95vw;
   }
@@ -62,7 +62,7 @@ li {
   }
 }
 
-/* Hard-coded, there might be a more responsive solution */
+/* Magic number, there might be a more responsive solution */
 @media (width >= 600px) {
   #nav-container {
     display: flex;
