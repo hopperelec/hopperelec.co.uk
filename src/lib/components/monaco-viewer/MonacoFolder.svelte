@@ -17,7 +17,9 @@ export let nesting = 1;
   <button type="button" on:click={() => folder.open = !folder.open}>{name}</button>
   <ul>
     {#each Object.entries(folder.subFolders) as [subFolderName, subFolder]}
-      <MonacoFolderComponent name={subFolderName} folder={subFolder} {openFile} nesting={nesting+1}/>
+      <li>
+        <MonacoFolderComponent name={subFolderName} folder={subFolder} {openFile} nesting={nesting+1}/>
+      </li>
     {/each}
     {#each folder.files as file}
       <li>
