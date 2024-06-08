@@ -20,4 +20,8 @@ import Projects from "./Projects.svelte";
 :global(body) {
   overflow-x: hidden;
 }
+
+main {
+  font-size: max(14px, min(2vw, 2vh));
+}
 </style>

@@ -23,7 +23,9 @@ a {
 }
 
 nav {
-  border-bottom: 5px solid white;
+  --nav-border: 0.2em solid white;
+
+  border-bottom: var(--nav-border);
   background-color: #646464;
   font-size: 1.5em;
   font-weight: bold;
@@ -70,7 +72,7 @@ li {
   }
 
   nav {
-    border: 5px solid white;
+    border: var(--nav-border);
     border-top: none;
     border-radius: 0 0 1em 1em;
   }

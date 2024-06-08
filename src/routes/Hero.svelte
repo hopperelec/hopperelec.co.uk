@@ -62,9 +62,9 @@ setInterval(changeRollingText, 6000);
   <style>
     /* HopperIcon */
     section > svg {
-        max-width: 50%;
-        max-height: 50%;
-        padding-bottom: 20px;
+      max-width: 33%;
+      max-height: 33%;
+      padding-bottom: min(20px, 3%);
     }
   </style>
 </svelte:head>
@@ -80,7 +80,7 @@ section {
   flex-direction: column;
   filter: drop-shadow(0 0 32px black);
   font-family: "Courier New", Courier, monospace;
-  font-size: 3.5em;
+  font-size: 1.5em;
   font-weight: bold;
   text-align: center;
 }

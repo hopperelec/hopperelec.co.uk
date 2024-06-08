@@ -233,6 +233,7 @@ h3, span {
   background-color: var(--editor-color);
   overflow-y: auto; /* Could be replaced with Monaco scrollbar */
   user-select: text;
+  font-size: 14px;
 
   /*
     22px on top for breadcrumbs

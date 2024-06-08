@@ -96,7 +96,6 @@ section {
 
 p {
   padding: 1em;
-  font-size: 1.5em;
   text-align: center;
 }
 
@@ -132,7 +131,6 @@ li {
 img {
   width: 2em;
   height: 2em;
-  padding-right: .5em;
 }
 
 a {
