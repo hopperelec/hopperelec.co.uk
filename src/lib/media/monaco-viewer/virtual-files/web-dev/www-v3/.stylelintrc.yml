@@ -1,1 +1,2 @@
-# TODO
+# One of the main focuses of www-v3 is maintaining good code quality
+# As a result, I've used both Biome (a Prettier+ESLint alternative) and Stylelint

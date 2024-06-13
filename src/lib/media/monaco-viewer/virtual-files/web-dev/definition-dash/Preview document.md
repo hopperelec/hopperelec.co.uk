@@ -1,1 +1,2 @@
-# TODO
+Because Definition Dash was made as part of coursework, the main focus was actually on external documentation rather than the code.
+~I didn't use Markdown for my coursework, but it's the closest I can get to a Google Doc for these virtual files~
