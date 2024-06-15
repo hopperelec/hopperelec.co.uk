@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>uk.co.hopperelec</groupId>
+    <artifactId>pom-example</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <developers>
+        <developer>
+            <id>hopperelec</id>
+            <name>Cameron Johnston</name>
+            <email>hopperelec@gmail.com</email>
+            <url>https:///www.hopperelec.co.uk/</url>
+            <timezone>Europe/London</timezone>
+        </developer>
+    </developers>
+
+    <!--
+        For all my Java-based projects, I have used Maven,
+        which has given me a good understanding of how Maven and other compilers work
+    -->
+</project>
