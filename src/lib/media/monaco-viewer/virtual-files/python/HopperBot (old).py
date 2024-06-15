@@ -2,6 +2,7 @@ print("""
 HopperBot is the Discord bot I use for most Discord servers I create or moderate.
 
 It was originally developed using Discord.py and included the following features before I switched to JDA:
+- Info commands
 - Moderation logging
 - Purging
 - Polls
