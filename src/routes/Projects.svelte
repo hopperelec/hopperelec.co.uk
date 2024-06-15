@@ -8,7 +8,7 @@ import {
 
 let activeFile: MonacoFile;
 
-const PATH_REGEX = RegExp(/\/virtual-files\/(.*?)([^\/]+?(\.([^\/.]+))?)$/);
+const PATH_REGEX = RegExp(/\/virtual-files\/(.*?)([^\/]+?(\._?([^\/.]+))?)$/);
 const files: MonacoFile[] = Object.entries(
 	import.meta.glob("$lib/media/monaco-viewer/virtual-files/**/*", {
 		query: "?raw",
@@ -17,8 +17,8 @@ const files: MonacoFile[] = Object.entries(
 ).map(([originalPathFilename, contentsPromise]) => {
 	let [trimmedPathFilename, virtualPath, filename, _, extension] =
 		PATH_REGEX.exec(originalPathFilename) as RegExpExecArray;
-	// SvelteKit prevents importing files ending with "server.ts", so I add an underscore to the filenames
-	filename = filename.replace(/_server\.ts$/, "server.ts"); // Remove that underscore, if it exists
+	// SvelteKit prevents importing some files, so I add an underscore next to the dot in the filenames
+	filename = filename.replace(/_?\._?/, "."); // Remove that underscore, if it exists
 	const file: MonacoFile = {
 		name: filename,
 		path: virtualPath,
