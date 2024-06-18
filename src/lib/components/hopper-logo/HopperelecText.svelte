@@ -13,7 +13,7 @@ export let hopper:
 	  } = undefined;
 </script>
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.5 8" fill={textFillColor} height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.5 8" fill={textFillColor} height="1em">
   <defs>
     <mask id="matrix">
       <rect id="letterRect" fill="#fff" width="4" height="8"/>
