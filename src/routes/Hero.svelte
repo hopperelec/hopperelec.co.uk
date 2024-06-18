@@ -4,7 +4,6 @@ import HopperIcon from "$lib/components/hopper-logo/HopperIcon.svelte";
 import HopperelecText from "$lib/components/hopper-logo/HopperelecText.svelte";
 import HeHimSticker from "$lib/media/hero/stickers/cameron/he-him.svg";
 import MaleSticker from "$lib/media/hero/stickers/cameron/male.svg";
-import MinecraftSticker from "$lib/media/hero/stickers/cameron/minecraft.webp";
 import JDASticker from "$lib/media/hero/stickers/hopperelec/jda.svg";
 import PaperMCSticker from "$lib/media/hero/stickers/hopperelec/papermc.svg";
 import PythonSticker from "$lib/media/hero/stickers/hopperelec/python.svg";
@@ -108,16 +107,26 @@ function switchMode() {
           <img src={JDASticker} alt="JDA logo" style:top="70%" style:right="15%"/>
         {:else}
           <!-- TODO: Good Kid logo, waiting on permission and potentially an official vector -->
-          <!-- TODO: Rainbow infinity (autism symbol), waiting on higher quality versions -->
           <enhanced:img
             class:sticker={true}
-            src="$lib/media/hero/stickers/cameron/fidget-rings.webp?brightness=0.55"
+            src="$lib/media/hero/stickers/cameron/fidget-rings.webp?brightness=0.55&effort=max"
             alt="Three green glow-in-the-dark magnetic fidget rings"
-            style:top="20%" style:right="25%"
+            style:top="75%" style:left="25%"
           />
-          <img src={MinecraftSticker} alt="Minecraft grass block" style:top="70%" style:left="15%"/>
+          <enhanced:img
+            class:sticker={true}
+            src="$lib/media/hero/stickers/cameron/autism.webp?effort=max"
+            alt="Rainbow infinity (autism symbol)"
+            style:top="65%" style:right="15%"
+          />
+          <enhanced:img
+            class:sticker={true}
+            src="$lib/media/hero/stickers/cameron/minecraft.webp?effort=max"
+            alt="Minecraft grass block"
+            style:top="50%" style:left="10%"
+          />
           <img src={MaleSticker} alt="Blue male symbol" style:top="15%" style:left="20%"/>
-          <img src={HeHimSticker} alt="'he him' in a speech bubble" style:top="65%" style:right="20%"/>
+          <img src={HeHimSticker} alt="'he him' in a speech bubble" style:top="25%" style:right="10%"/>
         {/if}
       </div>
       <button type="button" on:click={switchMode} title={"Switch to "+(hopperelecMode ? 'Cameron' : 'hopperelec')+" mode"}>
@@ -230,6 +239,7 @@ p {
   max-width: 25%;
   max-height: 25%;
   width: auto;
+  height: auto;
   filter: drop-shadow(0 0 8px black);
 
   @media (aspect-ratio < 1) {
