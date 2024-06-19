@@ -96,7 +96,7 @@ function switchMode() {
 }
 </script>
 
-<section id="hero">
+<section id="hero" class:cameron-mode={!hopperelecMode}>
   {#key hopperelecMode}
     <div id="transition-container" transition:fade>
       <div id="stickers">
@@ -129,46 +129,52 @@ function switchMode() {
           <img src={HeHimSticker} alt="'he him' in a speech bubble" style:top="25%" style:right="10%"/>
         {/if}
       </div>
-      <button type="button" on:click={switchMode} title={"Switch to "+(hopperelecMode ? 'Cameron' : 'hopperelec')+" mode"}>
-        {#if hopperelecMode}
-          <HopperIcon fillColor="#646464" outlineColor="#fff" outlineWidth={6} typeOf3D="stroke" padding={{top: 3, right: 3, bottom: 3, left: 3}} scale={null}/>
-        {:else}
-          My face (PLACEHOLDER)
-          <!-- TODO: Get good photo (mostly referring to the cropping lol) -->
-        {/if}
-      </button>
-      <p>
-        <span>Hi, I'm</span>
-        <span class="name-img">
-          {#if hopperelecMode}
-            <HopperelecText/>
-          {:else}
-            <CameronText color="#fff" thickness={130}/>
-          {/if}
+      <div id="centered-container">
+        <div>
+          <button type="button" on:click={switchMode} title={"Switch to "+(hopperelecMode ? 'Cameron' : 'hopperelec')+" mode"}>
+            {#if hopperelecMode}
+              <HopperIcon fillColor="#646464" outlineColor="#fff" outlineWidth={6} typeOf3D="stroke" padding={{top: 3, right: 3, bottom: 3, left: 3}} scale={null}/>
+            {:else}
+              <enhanced:img class:cameron-face={true} src="$lib/media/hero/cameron-smile.webp?effort=max" alt="Cameron smiling"/>
+              <!-- TODO: bonked face - I already have a frowning face, but wanting a good hammer PNG -->
+            {/if}
+          </button>
+          <p>
+        <span>
+          <span>Hi, I'm</span>
+          <span class="name-img">
+            {#if hopperelecMode}
+              <HopperelecText/>
+            {:else}
+              <CameronText color="#fff" thickness={130}/>
+            {/if}
+          </span>
+          <span>. I</span>
         </span>
-        <span>. I</span>
-      </p>
-      {#key currentRollingTextI}
-        <p id="rolling-text" transition:slide={{duration: 2000}}>
-          <span class="verb">{currentRollingText[0]}</span>
-          {#if currentRollingText[1]}
-            <span class="noun">{currentRollingText[1]}</span>
-          {/if}
-          {#if currentRollingText[2]}
-            <span class="connective">{currentRollingText[2]}</span>
-          {/if}
-          {#if currentRollingText[3]}
-            <span style:color={currentRollingText[3]?.color}>{currentRollingText[3]?.text}</span>
-          {/if}
-        </p>
-      {/key}
+            {#key currentRollingTextI}
+          <span id="rolling-text" transition:slide={{duration: 2000}}>
+            <span class="verb">{currentRollingText[0]}</span>
+            {#if currentRollingText[1]}
+              <span class="noun">{currentRollingText[1]}</span>
+            {/if}
+            {#if currentRollingText[2]}
+              <span class="connective">{currentRollingText[2]}</span>
+            {/if}
+            {#if currentRollingText[3]}
+              <span style:color={currentRollingText[3]?.color}>{currentRollingText[3]?.text}</span>
+            {/if}
+          </span>
+            {/key}
+          </p>
+        </div>
+        </div>
     </div>
   {/key}
 </section>
 
 <svelte:head>
   <style>
-    button > * {
+    button > svg {
       height: 100%;
       width: 100%;
     }
@@ -191,26 +197,62 @@ section {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+#centered-container {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative; /* For aligning text under cameron-face */
+  }
 }
 
 button {
-  max-width: 33%;
-  max-height: 33%;
+  max-width: 50%;
   padding-bottom: min(20px, 3%);
   filter: drop-shadow(0 0 32px black);
   cursor: pointer;
 }
 
-/* Hide whitespace surrounding name-img */
+.cameron-face {
+  max-width: 75%;
+  width: auto;
+  height: auto;
+}
+
 p {
   display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  & > span {
-    padding: 0 .3em;
+  /* Hide whitespace surrounding name-img */
+  & > :first-child {
+    display: flex;
+      
+    & > span {
+      padding: 0 .3em;
+
+      &.name-img {
+        padding-right: 0;
+
+        & + * {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+
+  /* Show text partially over hair of cameron-face */
+  .cameron-mode & {
+    position: absolute;
+    bottom: 20%;
   }
 }
 
@@ -218,11 +260,6 @@ p {
   vertical-align: text-top;
   display: inline-block;
   height: 1em;
-  padding-right: 0;
-
-  & + * {
-    padding-left: 0;
-  }
 }
 
 .noun {
