@@ -10,6 +10,10 @@ import PythonSticker from "$lib/media/hero/stickers/hopperelec/python.svg";
 import SvelteSticker from "$lib/media/hero/stickers/hopperelec/svelte.svg";
 import { fade, slide } from "svelte/transition";
 
+let width: number;
+let height: number;
+$: opacity = 0.2 * Math.min(1.3, width / height) ** 2;
+
 let hopperelecMode = true;
 
 type RollingText = [
@@ -96,10 +100,14 @@ function switchMode() {
 }
 </script>
 
-<section id="hero" class:cameron-mode={!hopperelecMode}>
+<section
+  id="hero"
+  class:hopperelec-mode={hopperelecMode} class:cameron-mode={!hopperelecMode}
+  bind:clientWidth={width} bind:clientHeight={height}
+>
   {#key hopperelecMode}
     <div id="transition-container" transition:fade>
-      <div id="stickers">
+      <div id="stickers" style:opacity={opacity > 0.1 ? opacity : 0}>
         {#if hopperelecMode}
           <img src={SvelteSticker} alt="Svelte logo" style:top="15%" style:right="20%"/>
           <img src={PythonSticker} alt="Python logo" style:top="60%" style:left="10%"/>
@@ -130,53 +138,53 @@ function switchMode() {
         {/if}
       </div>
       <div id="centered-container">
-        <div>
-          <button type="button" on:click={switchMode} title={"Switch to "+(hopperelecMode ? 'Cameron' : 'hopperelec')+" mode"}>
-            {#if hopperelecMode}
-              <HopperIcon fillColor="#646464" outlineColor="#fff" outlineWidth={6} typeOf3D="stroke" padding={{top: 3, right: 3, bottom: 3, left: 3}} scale={null}/>
-            {:else}
-              <enhanced:img class:cameron-face={true} src="$lib/media/hero/cameron-smile.webp?effort=max" alt="Cameron smiling"/>
-              <!-- TODO: bonked face - I already have a frowning face, but wanting a good hammer PNG -->
-            {/if}
-          </button>
-          <p>
-        <span>
-          <span>Hi, I'm</span>
-          <span class="name-img">
-            {#if hopperelecMode}
-              <HopperelecText/>
-            {:else}
-              <CameronText color="#fff" thickness={130}/>
-            {/if}
+        <button type="button" on:click={switchMode} title={"Switch to "+(hopperelecMode ? 'Cameron' : 'hopperelec')+" mode"}>
+          {#if hopperelecMode}
+            <HopperIcon fillColor="#646464" outlineColor="#fff" outlineWidth={6} typeOf3D="stroke" padding={{top: 3, right: 3, bottom: 3, left: 3}} scale={null}/>
+          {:else}
+            <enhanced:img class:cameron-face={true} src="$lib/media/hero/cameron-smile.webp?effort=max" alt="Cameron smiling"/>
+            <!-- TODO: bonked face - I already have a frowning face, but wanting a good hammer PNG -->
+          {/if}
+        </button>
+        <p>
+          <span>
+            <span>Hi, I'm</span>
+            <span class="name-img">
+              {#if hopperelecMode}
+                <HopperelecText/>
+              {:else}
+                <CameronText color="#fff" thickness={130}/>
+              {/if}
+            </span>
+            <span>. I</span>
           </span>
-          <span>. I</span>
-        </span>
-            {#key currentRollingTextI}
-          <span id="rolling-text" transition:slide={{duration: 2000}}>
-            <span class="verb">{currentRollingText[0]}</span>
-            {#if currentRollingText[1]}
-              <span class="noun">{currentRollingText[1]}</span>
-            {/if}
-            {#if currentRollingText[2]}
-              <span class="connective">{currentRollingText[2]}</span>
-            {/if}
-            {#if currentRollingText[3]}
-              <span style:color={currentRollingText[3]?.color}>{currentRollingText[3]?.text}</span>
-            {/if}
-          </span>
-            {/key}
-          </p>
-        </div>
-        </div>
+          {#key currentRollingTextI}
+            <span id="rolling-text" transition:slide={{duration: 2000}}>
+              <span class="verb">{currentRollingText[0]}</span>
+              {#if currentRollingText[1]}
+                <span class="noun">{currentRollingText[1]}</span>
+              {/if}
+              {#if currentRollingText[2]}
+                <span class="connective">{currentRollingText[2]}</span>
+              {/if}
+              {#if currentRollingText[3]}
+                <span style:color={currentRollingText[3]?.color}>{currentRollingText[3]?.text}</span>
+              {/if}
+            </span>
+          {/key}
+        </p>
+      </div>
     </div>
   {/key}
 </section>
 
+<!-- TODO: center images should scale down to fit inside of #transition-container -->
+
 <svelte:head>
   <style>
     button > svg {
-      height: 100%;
-      width: 100%;
+      width: 50%;
+      max-height: 20em;
     }
   </style>
 </svelte:head>
@@ -185,8 +193,6 @@ function switchMode() {
 section {
   position: relative;
   height: 80vh;
-  padding: 1.05em 15px 0;
-  box-sizing: border-box;
   font-family: "Courier New", Courier, monospace;
   font-size: 1.5em;
   font-weight: bold;
@@ -194,50 +200,49 @@ section {
 }
 
 #transition-container {
+  display: flex;
+  align-items: center;
   position: absolute;
   width: 100%;
   height: 100%;
+  padding: 15px 15px 0;
+  box-sizing: border-box;
 }
 
+/* For aligning text under cameron-face */
 #centered-container {
+  position: relative;
   width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  & > div {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    position: relative; /* For aligning text under cameron-face */
-  }
 }
 
 button {
-  max-width: 50%;
+  width: 100%;
   padding-bottom: min(20px, 3%);
   filter: drop-shadow(0 0 32px black);
   cursor: pointer;
 }
 
 .cameron-face {
-  max-width: 75%;
-  width: auto;
+  max-height: 40em;
+  width: 80%;
   height: auto;
+  object-fit: contain;
 }
 
 p {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  width: 100%;
 
   /* Hide whitespace surrounding name-img */
   & > :first-child {
     display: flex;
-      
+
     & > span {
       padding: 0 .3em;
+      white-space: nowrap;
 
       &.name-img {
         padding-right: 0;
@@ -249,10 +254,11 @@ p {
     }
   }
 
-  /* Show text partially over hair of cameron-face */
-  .cameron-mode & {
-    position: absolute;
-    bottom: 20%;
+  @media (width > 700px) { /* When 2vw is greater than 14px, the minimum font size */
+    /* Show text partially over hair of cameron-face */
+    .cameron-mode & {
+      bottom: 20%;
+    }
   }
 }
 
@@ -271,16 +277,11 @@ p {
 }
 
 .sticker, #stickers > img {
-  opacity: 0.3;
   position: absolute;
   max-width: 25%;
   max-height: 25%;
   width: auto;
   height: auto;
   filter: drop-shadow(0 0 8px black);
-
-  @media (aspect-ratio < 1) {
-    display: none;
-  }
 }
 </style>

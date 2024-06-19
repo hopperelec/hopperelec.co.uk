@@ -6,8 +6,9 @@ import NavBar from "./NavBar.svelte";
 import Projects from "./Projects.svelte";
 </script>
 
+<NavBar/>
 <CuttingMatBackground>
-  <NavBar/>
+  <div id="navbar-padding"></div>
   <main>
     <Hero/>
     <Projects/>
@@ -19,6 +20,10 @@ import Projects from "./Projects.svelte";
 <style lang="scss">
 :global(body) {
   overflow-x: hidden;
+}
+
+#navbar-padding {
+  height: 3.75em;
 }
 
 main {
