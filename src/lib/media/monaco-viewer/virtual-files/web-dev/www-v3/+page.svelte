@@ -7,7 +7,7 @@ const CHAT_ANALYTICS_GITHUB = "https://github.com/mlomb/chat-analytics";
 
 <svelte:head>
   <title>{$title || "website"}</title>
-  <meta name="description" content={$description} />
+  <meta name="description" content={$description}/>
 </svelte:head>
 
 <main>

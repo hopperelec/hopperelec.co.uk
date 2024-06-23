@@ -6,7 +6,7 @@ import CuttingMat from "$lib/media/cutting-mat.webp?enhanced&effort=max&brightne
 </script>
 
 <div id="cutting-mat" style:--cutting-mat="url({CuttingMat.img.src})">
-  <slot />
+  <slot/>
 </div>
 
 <style lang="scss">
