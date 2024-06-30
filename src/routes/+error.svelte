@@ -23,6 +23,6 @@ div {
 h1 {
   font-size: 64px;
   font-weight: bold;
-  color: white;
+  color: #fff;
 }
 </style>

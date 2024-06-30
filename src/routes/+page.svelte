@@ -1,29 +1,23 @@
 <script lang="ts">
+import NavBar from "$lib/components/NavBar.svelte";
 import Contact from "./Contact.svelte";
 import CuttingMatBackground from "./CuttingMatBackground.svelte";
 import Hero from "./Hero.svelte";
-import NavBar from "./NavBar.svelte";
 import Projects from "./Projects.svelte";
 </script>
 
-<NavBar/>
 <CuttingMatBackground>
-  <div id="navbar-padding"></div>
-  <main>
+  <NavBar/>
+  <main class="navbar-padding">
     <Hero/>
     <Projects/>
     <Contact/>
   </main>
 </CuttingMatBackground>
 
-
 <style lang="scss">
 :global(body) {
   overflow-x: hidden;
-}
-
-#navbar-padding {
-  height: 3.75em;
 }
 
 main {

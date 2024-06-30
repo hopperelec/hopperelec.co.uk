@@ -15,6 +15,6 @@ import CuttingMat from "$lib/media/cutting-mat.webp?enhanced&effort=max&brightne
   background-size: 2cm;
   width: 100%;
   min-height: 100%;
-  color: white;
+  color: #fff;
 }
 </style>

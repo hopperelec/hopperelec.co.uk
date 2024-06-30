@@ -1,4 +1,5 @@
 <script lang="ts">
+import CameronFace from "$lib/components/CameronFace.svelte";
 import CameronText from "$lib/components/CameronText.svelte";
 import HopperIcon from "$lib/components/hopper-logo/HopperIcon.svelte";
 import HopperelecText from "$lib/components/hopper-logo/HopperelecText.svelte";
@@ -31,7 +32,7 @@ const HopperelecRollingText: RollingText[] = [
 	["make", "websites", "with", { text: "Javascript", color: "#f0db4f" }],
 	["make", "websites", "with", { text: "Typescript", color: "#377cc8" }],
 	["make", "websites", "with", { text: "PHP", color: "#7b7fb5" }],
-	["code", "stuff", "with", { text: "Python", color: "yellow" }],
+	["code", "stuff", "with", { text: "Python", color: "#ff0" }],
 	["make", "a Discord bot", "with", { text: "Java", color: "#5382a1" }],
 	["develop", "Minecraft plugins", "with", { text: "Java", color: "#5382a1" }],
 	["contribute to", "open-source"],
@@ -59,7 +60,7 @@ const CameronRollingText: RollingText[] = [
 		`${timeSinceBorn.getFullYear() - 1970} years old`,
 		undefined,
 		timeSinceBorn.getDate() === 1 && timeSinceBorn.getMonth() === 0
-			? { text: "today! 🎉", color: "yellow" } // Emoji is too big, but I'm calling this a feature
+			? { text: "today! 🎉", color: "#ff0" } // Emoji is too big, but I'm calling this a feature
 			: undefined,
 	],
 	["go by", "he/him"],
@@ -100,13 +101,12 @@ function switchMode() {
 }
 </script>
 
-<section
-  id="hero"
-  class:hopperelec-mode={hopperelecMode} class:cameron-mode={!hopperelecMode}
-  bind:clientWidth={width} bind:clientHeight={height}
->
+<section id="hero" bind:clientWidth={width} bind:clientHeight={height}>
   {#key hopperelecMode}
-    <div id="transition-container" transition:fade>
+    <div
+      id="transition-container" transition:fade
+      class:hopperelec-mode={hopperelecMode} class:cameron-mode={!hopperelecMode}
+    >
       <div id="stickers" style:opacity={opacity > 0.1 ? opacity : 0}>
         {#if hopperelecMode}
           <img src={SvelteSticker} alt="Svelte logo" style:top="15%" style:right="20%"/>
@@ -142,7 +142,7 @@ function switchMode() {
           {#if hopperelecMode}
             <HopperIcon fillColor="#646464" outlineColor="#fff" outlineWidth={6} typeOf3D="stroke" padding={{top: 3, right: 3, bottom: 3, left: 3}} scale={null}/>
           {:else}
-            <enhanced:img class:cameron-face={true} src="$lib/media/hero/cameron-smile.webp?effort=max" alt="Cameron smiling"/>
+            <CameronFace/>
             <!-- TODO: bonked face - I already have a frowning face, but wanting a good hammer PNG -->
           {/if}
         </button>
@@ -179,16 +179,6 @@ function switchMode() {
 </section>
 
 <!-- TODO: center images should scale down to fit inside of #transition-container -->
-
-<svelte:head>
-  <style>
-    button > svg {
-      width: 50%;
-      max-height: 20em;
-    }
-  </style>
-</svelte:head>
-
 <style>
 section {
   position: relative;
@@ -211,29 +201,34 @@ section {
 
 /* For aligning text under cameron-face */
 #centered-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   width: 100%;
 }
 
 button {
-  width: 100%;
   padding-bottom: min(20px, 3%);
-  filter: drop-shadow(0 0 32px black);
+  filter: drop-shadow(0 0 32px #000);
   cursor: pointer;
-}
 
-.cameron-face {
-  max-height: 40em;
-  width: 80%;
-  height: auto;
-  object-fit: contain;
+  .hopperelec-mode & {
+    height: 20em;
+    width: 50%;
+  }
+
+  .cameron-mode & {
+    height: 40em;
+    width: 80%;
+  }
 }
 
 p {
+  /* These are required for the transition to work */
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
   width: 100%;
 
   /* Hide whitespace surrounding name-img */
@@ -257,6 +252,7 @@ p {
   @media (width > 700px) { /* When 2vw is greater than 14px, the minimum font size */
     /* Show text partially over hair of cameron-face */
     .cameron-mode & {
+      position: absolute;
       bottom: 20%;
     }
   }
@@ -282,6 +278,6 @@ p {
   max-height: 25%;
   width: auto;
   height: auto;
-  filter: drop-shadow(0 0 8px black);
+  filter: drop-shadow(0 0 8px #000);
 }
 </style>

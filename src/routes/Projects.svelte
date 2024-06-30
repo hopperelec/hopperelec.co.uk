@@ -41,7 +41,7 @@ const files: MonacoFile[] = Object.entries(
 <style>
 section {
   height: 90vh;
-  box-shadow: 0 0 10vh 32px black;
+  box-shadow: 0 0 10vh 32px #000;
   margin-top: 10vh;
   z-index: 1;
   position: relative;

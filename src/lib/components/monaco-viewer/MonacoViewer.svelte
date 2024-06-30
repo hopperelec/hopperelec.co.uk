@@ -203,7 +203,7 @@ h3, span {
     }
 
     &.open {
-      color: white;
+      color: #fff;
       border-top-color: #0078d4;
     }
 

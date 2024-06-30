@@ -2,7 +2,7 @@
   <nav>
     <ul>
       <li><a href="/#hero">Home</a></li>
-      <li><a href="/about">About Me</a></li>
+      <li><a href="/about/">About</a></li>
       <li><a href="/#projects">Projects</a></li>
       <li><a href="/#contact">Contact</a></li>
     </ul>
@@ -11,19 +11,19 @@
 
 <style>
 #nav-container {
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
   z-index: 99999;
 }
 
 a {
-  color: white;
+  color: #fff;
   text-decoration: none;
 }
 
 nav {
-  --nav-border: 0.2em solid white;
+  --nav-border: 0.2em solid #ffff;
 
   border-bottom: var(--nav-border);
   background-color: #646464;
@@ -58,7 +58,7 @@ li {
       /* Dividing line */
       content: '';
       height: 80%;
-      border-left: 0.1em solid white;
+      border-left: 0.1em solid #fff;
       padding-left: 0.5em;
     }
   }

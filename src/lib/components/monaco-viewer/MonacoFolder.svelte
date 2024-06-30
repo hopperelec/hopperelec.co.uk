@@ -58,7 +58,7 @@ ul {
     &::before {
       content: "";
       display: inline-block;
-      border: solid white;
+      border: solid #fff;
       border-width: 1px 1px 0 0;
       height: 6px;
       width: 6px;
