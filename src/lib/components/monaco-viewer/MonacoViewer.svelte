@@ -81,7 +81,10 @@ function closeFile(file: MonacoFile) {
   <div id="explorer">
     <MonacoFolderComponent name="WORKSPACE" folder={rootFolder} {openFile}/>
   </div>
-  <div id="editor" class:markdown={activeFile && activeFile.highlight_type === "markdown_preview"}>
+  <div id="editor"
+       class:markdown={activeFile && activeFile.highlight_type === "markdown_preview"}
+       class:raw={activeFile && activeFile.highlight_type === "raw"}
+  >
     {#if activeFile}
       {#if activeFile.highlight_type === "raw"}
         {activeFile.contents}
@@ -241,8 +244,11 @@ h3, span {
   */
   padding: 22px 0 0 68px;
 
-  &.markdown {
+  &.markdown, &.raw {
     text-wrap: wrap;
+  }
+
+  &.markdown {
     padding: 14px 52px;
   }
 }
