@@ -1,10 +1,10 @@
 <script>
-import { goto } from "$app/navigation";
-import CameronFace from "$lib/components/CameronFace.svelte";
-import CameronText from "$lib/components/CameronText.svelte";
-import NavBar from "$lib/components/NavBar.svelte";
-import HopperIcon from "$lib/components/hopper-logo/HopperIcon.svelte";
-import HopperelecText from "$lib/components/hopper-logo/HopperelecText.svelte";
+  import { goto } from "$app/navigation";
+  import CameronFace from "$lib/components/CameronFace.svelte";
+  import CameronText from "$lib/components/CameronText.svelte";
+  import NavBar from "$lib/components/NavBar.svelte";
+  import HopperIcon from "$lib/components/hopper-logo/HopperIcon.svelte";
+  import HopperelecText from "$lib/components/hopper-logo/HopperelecText.svelte";
 </script>
 
 <div id="page-container">
@@ -62,7 +62,12 @@ main {
 
 button {
   font-size: 3em;
-  margin: .25em 1em;
+  margin: .5em;
+  filter: drop-shadow(0 0 8px #000);
+
+  &:hover {
+    filter: drop-shadow(0 0 16px #000);
+  }
 }
 
 .icon {
