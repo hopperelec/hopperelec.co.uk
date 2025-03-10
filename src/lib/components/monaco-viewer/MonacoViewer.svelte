@@ -14,7 +14,7 @@ import {
 import { untrack } from "svelte";
 
 let {
-	files = [],
+	files = $bindable([]),
 	activeFile = $bindable(files.find((file) => file.open)) as
 		| MonacoFile
 		| undefined,
@@ -55,6 +55,8 @@ $effect(() => {
 
 function openFile(file: MonacoFile) {
 	file.open = true;
+    // biome-ignore lint/correctness/noSelfAssign: Trigger reactivity
+    files = files; // Not sure why Svelte 5's deep reactivity isn't working here
 	activeFile = file;
 }
 
@@ -74,7 +76,8 @@ function closeFile(file: MonacoFile) {
   <ul id="editor-tabs">
     {#each files as file}
       {#if file.open}
-        <li class:open={file === activeFile}>
+        <!-- Can't use direct comparison because activeFile is sometimes a proxy -->
+        <li class:open={file.name === activeFile?.name && file.path === activeFile.path}>
           <button
             type="button"
             onclick={() => activeFile = file}
@@ -98,13 +101,13 @@ function closeFile(file: MonacoFile) {
   >
     {#if activeFile}
       {#if activeFile.highlight_type === "raw"}
-        {activeFile.contents}
+        {activeFile.contents()}
       {:else if activeFile.highlight_type === "markdown_preview"}
-        <SvelteMarkdown source={activeFile.contents}/>
+        <SvelteMarkdown source={activeFile.contents()}/>
       {:else if activeFile.highlight_type === "svelte"}
-        <HighlightSvelte code={activeFile.contents}/>
+        <HighlightSvelte code={activeFile.contents()}/>
       {:else}
-        <Highlight language={SVELTE_HIGHLIGHT_LANGUAGES[activeFile.highlight_type]} code={activeFile.contents}/>
+        <Highlight language={SVELTE_HIGHLIGHT_LANGUAGES[activeFile.highlight_type]} code={activeFile.contents()}/>
       {/if}
       <!--
         I also want to add line numbers, but it's hard to integrate this with highlight-svelte.

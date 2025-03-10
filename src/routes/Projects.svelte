@@ -17,15 +17,17 @@ const files: MonacoFile[] = Object.entries(
 		PATH_REGEX.exec(originalPathFilename) as RegExpExecArray;
 	// SvelteKit prevents importing some files, so I add an underscore next to the dot in the filenames
 	filename = filename.replace(/_?\._?/, "."); // Remove that underscore, if it exists
+    let contents = $state("");
 	const file: MonacoFile = {
 		name: filename,
 		path: virtualPath,
 		highlight_type: chooseHighlightType(filename, extension),
 		icon: chooseFileIcon(filename, extension),
 		open: trimmedPathFilename === "/virtual-files/Preview README.md",
+        contents: () => contents,
 	};
-	contentsPromise().then((contents) => {
-		file.contents = contents as string;
+	contentsPromise().then((newContents) => {
+		contents = newContents as string;
 	});
 	return file;
 });

@@ -107,7 +107,7 @@ export interface MonacoFile {
 	icon: string;
 	name: string;
 	path: string;
-	contents?: string;
+	contents: () => string;
 	open: boolean;
 }
 
