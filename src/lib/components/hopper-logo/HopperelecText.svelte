@@ -1,16 +1,14 @@
 <script lang="ts">
 import HopperIcon from "$lib/components/hopper-logo/HopperIcon.svelte";
-import type { EYES, TYPE_OF_3D } from "$lib/components/hopper-logo/types";
+import type { Eyes, HopperParams } from "$lib/components/hopper-logo/types";
 
-export let textFillColor = "#fff";
-export let hopper:
-	| undefined
-	| {
-			fillColor?: string;
-			outlineColor?: string;
-			typeOf3D?: TYPE_OF_3D;
-			eyes?: EYES;
-	  } = undefined;
+let {
+	textFillColor = "#fff",
+	hopper = undefined,
+}: {
+	textFillColor?: string;
+	hopper?: HopperParams & { eyes?: Eyes };
+} = $props();
 </script>
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44.5 8" fill={textFillColor} height="1em">
@@ -30,7 +28,7 @@ export let hopper:
       <path mask="url(#matrix)" d="M2 1 1 2V4L2 5 3 4V2ZL3 0 4 1V5L3 6 4 7 3 8 1 6V8L0 7V1L1 0"/>
       <!-- Translation and scale are poorly hard-coded -->
       <g transform="translate(1.05 0.93) scale(0.0089 0.0199)">
-        <HopperIcon fillColor={hopper.fillColor} outlineWidth={10} typeOf3D="gaps"/>
+        <HopperIcon {...hopper}/>
       </g>
     </g>
   {:else}

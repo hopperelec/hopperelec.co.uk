@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { MonacoFile } from "./monaco-types";
 
-export let file: MonacoFile;
+let { file }: { file: MonacoFile } = $props();
 </script>
 
 <div style:--icon={`url("${file.icon}")`}>

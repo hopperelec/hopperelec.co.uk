@@ -19,7 +19,7 @@
       So, this about section is split into two parts, corresponding to each of the above.
     </span>
     <div id="buttons">
-      <button id="hopperelec-button" type="button" on:click={() => goto("hopperelec")}>
+      <button id="hopperelec-button" type="button" onclick={() => goto("hopperelec")}>
         <div class="icon">
           <HopperIcon fillColor="#646464" outlineColor="#fff" outlineWidth={6} typeOf3D="stroke" padding={{top: 3, right: 3, bottom: 3, left: 3}} scale={null}/>
         </div>
@@ -27,7 +27,7 @@
           <HopperelecText/>
         </div>
       </button>
-      <button id="cameron-button" type="button" on:click={() => goto("cameron")}>
+      <button id="cameron-button" type="button" onclick={() => goto("cameron")}>
         <div class="icon">
           <CameronFace/>
         </div>

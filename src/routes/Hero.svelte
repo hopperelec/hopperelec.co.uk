@@ -11,11 +11,11 @@ import PythonSticker from "$lib/media/hero/stickers/hopperelec/python.svg";
 import SvelteSticker from "$lib/media/hero/stickers/hopperelec/svelte.svg";
 import { fade, slide } from "svelte/transition";
 
-let width: number;
-let height: number;
-$: opacity = 0.2 * Math.min(1.3, width / height) ** 2;
+let width: number = $state(1);
+let height: number = $state(1);
+let opacity = $derived(0.2 * Math.min(1.3, width / height) ** 2);
 
-let hopperelecMode = true;
+let hopperelecMode = $state(true);
 
 type RollingText = [
 	string, // verb
@@ -75,29 +75,29 @@ const CameronRollingText: RollingText[] = [
 	["listen to", "Exyl"],
 ];
 
-function changeRollingText() {
-	const options = hopperelecMode ? HopperelecRollingText : CameronRollingText;
-	let numOptions = options.length;
-	if (currentRollingTextI) numOptions--;
-	let choice = Math.floor(Math.random() * numOptions);
-	currentRollingTextI = currentRollingTextI
-		? choice >= currentRollingTextI
-			? choice + 1 // Don't pick same one
-			: choice
-		: choice;
-	currentRollingText = options[currentRollingTextI];
+let rollingTextOptions = $derived(
+	hopperelecMode ? HopperelecRollingText : CameronRollingText,
+);
+let currentRollingTextI = $state(getNextRollingTextI());
+let currentRollingText = $derived(rollingTextOptions[currentRollingTextI]);
+let rollingTextInterval = setInterval(setNextRollingTextI, 6000);
+
+function getNextRollingTextI(_currentRollingTextI?: number) {
+	let numOptions = rollingTextOptions.length;
+	if (_currentRollingTextI) numOptions--;
+	const choice = Math.floor(Math.random() * numOptions);
+	if (_currentRollingTextI && choice >= _currentRollingTextI) return choice + 1;
+	return choice;
 }
-let currentRollingTextI: number | undefined;
-let currentRollingText: RollingText;
-changeRollingText();
-let rollingTextInterval = setInterval(changeRollingText, 6000);
+function setNextRollingTextI() {
+	currentRollingTextI = getNextRollingTextI(currentRollingTextI);
+}
 
 function switchMode() {
 	hopperelecMode = !hopperelecMode;
 	clearTimeout(rollingTextInterval);
-	rollingTextInterval = setInterval(changeRollingText, 6000);
-	currentRollingTextI = undefined;
-	changeRollingText();
+	setNextRollingTextI();
+	rollingTextInterval = setInterval(setNextRollingTextI, 6000);
 }
 </script>
 
@@ -138,7 +138,7 @@ function switchMode() {
         {/if}
       </div>
       <div id="centered-container">
-        <button type="button" on:click={switchMode} title={"Switch to "+(hopperelecMode ? 'Cameron' : 'hopperelec')+" mode"}>
+        <button type="button" onclick={switchMode} title={"Switch to "+(hopperelecMode ? 'Cameron' : 'hopperelec')+" mode"}>
           {#if hopperelecMode}
             <HopperIcon fillColor="#646464" outlineColor="#fff" outlineWidth={6} typeOf3D="stroke" padding={{top: 3, right: 3, bottom: 3, left: 3}} scale={null}/>
           {:else}

@@ -6,14 +6,21 @@ import type {
 	MonacoFolder,
 } from "$lib/components/monaco-viewer/monaco-types";
 
-export let name: string;
-export let folder: MonacoFolder;
-export let openFile: (file: MonacoFile) => void;
-export let nesting = 1;
+let {
+	name,
+	folder = $bindable(),
+	openFile,
+	nesting = 1,
+}: {
+	name: string;
+	folder: MonacoFolder;
+	openFile: (file: MonacoFile) => void;
+	nesting?: number;
+} = $props();
 </script>
 
 <div id="folder" class:open={folder.open} style:--nesting={nesting} class:root={nesting === 1}>
-  <button type="button" on:click={() => folder.open = !folder.open}>{name}</button>
+  <button type="button" onclick={() => folder.open = !folder.open}>{name}</button>
   <ul>
     {#each Object.entries(folder.subFolders) as [subFolderName, subFolder]}
       <li>
@@ -22,7 +29,7 @@ export let nesting = 1;
     {/each}
     {#each folder.files as file}
       <li>
-        <button type="button" on:click={() => openFile(file)}>
+        <button type="button" onclick={() => openFile(file)}>
           <MonacoFilename {file}/>
         </button>
       </li>

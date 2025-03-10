@@ -1,6 +1,5 @@
 <script lang="ts">
-export let color: string;
-export let thickness: number;
+let { color, thickness }: { color: string; thickness: number } = $props();
 </script>
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="{-thickness/2} {-thickness/2} {2898+thickness} {1120+thickness}" height="1em">

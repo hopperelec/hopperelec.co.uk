@@ -6,8 +6,6 @@ import {
 	chooseHighlightType,
 } from "$lib/components/monaco-viewer/monaco-types.js";
 
-let activeFile: MonacoFile;
-
 const PATH_REGEX = RegExp(/\/virtual-files\/(.*?)([^\/]+?(\._?([^\/.]+))?)$/);
 const files: MonacoFile[] = Object.entries(
 	import.meta.glob("$lib/media/monaco-viewer/virtual-files/**/*", {
@@ -28,14 +26,13 @@ const files: MonacoFile[] = Object.entries(
 	};
 	contentsPromise().then((contents) => {
 		file.contents = contents as string;
-		if (file.open && !activeFile) activeFile = file;
 	});
 	return file;
 });
 </script>
 
 <section id="projects">
-  <MonacoViewer {files} {activeFile}/>
+  <MonacoViewer {files}/>
 </section>
 
 <style>

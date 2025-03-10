@@ -1,16 +1,13 @@
 <script lang="ts">
-import type { HOPPER_PARAMS } from "$lib/components/hopper-logo/types";
+import type { HopperParams } from "$lib/components/hopper-logo/types";
 
-export let params: HOPPER_PARAMS;
+let params: HopperParams = $props();
 
-let strokeColor: string;
-if (params.typeOf3D === "gaps") {
-	strokeColor = "#000";
-} else if (params.outlineColor) {
-	strokeColor = params.outlineColor;
-} else if (params.outlineWidth || params.typeOf3D === "stroke") {
-	strokeColor = "#000";
-}
+let strokeColor: string | undefined = $derived.by(() => {
+	if (params.typeOf3D === "gaps") return "#000";
+	if (params.outlineColor) return params.outlineColor;
+	if (params.outlineWidth || params.typeOf3D === "stroke") return "#000";
+});
 </script>
 
 <g

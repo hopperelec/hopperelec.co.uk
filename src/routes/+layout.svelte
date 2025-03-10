@@ -1,6 +1,9 @@
 <script lang="ts">
 import { BRAND_COLOR } from "$lib/constants";
 import { description, title } from "$lib/page-meta";
+import type { Snippet } from "svelte";
+
+let { children }: { children: Snippet } = $props();
 </script>
 
 <svelte:head>
@@ -13,4 +16,4 @@ import { description, title } from "$lib/page-meta";
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color={BRAND_COLOR}>
 </svelte:head>
 
-<slot/>
+{@render children()}

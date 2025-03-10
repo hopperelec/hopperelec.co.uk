@@ -11,32 +11,47 @@ import {
 	type MonacoFolder,
 	SVELTE_HIGHLIGHT_LANGUAGES,
 } from "./monaco-types";
+import { untrack } from "svelte";
 
-export let files: MonacoFile[];
-export let activeFile: undefined | MonacoFile = undefined;
+let {
+	files = [],
+	activeFile = $bindable(files.find((file) => file.open)) as
+		| MonacoFile
+		| undefined,
+	// For some reason the `undefined` isn't implied here,
+	// even if I explicitly type it below, so I have to cast it
+}: {
+	files?: MonacoFile[];
+	activeFile?: MonacoFile;
+} = $props();
 
-let rootFolder: MonacoFolder = {
-	files: [],
-	subFolders: {},
-	open: true,
-};
-
-$: for (const file of files) {
-	let folder = rootFolder;
-	for (const pathFolder of file.path.split("/").slice(0, -1)) {
-		if (pathFolder in folder.subFolders) {
-			folder = folder.subFolders[pathFolder];
-		} else {
-			folder.subFolders[pathFolder] = folder = {
-				files: [],
-				subFolders: {},
-				open: false,
-			};
-		}
-		if (file.open) folder.open = true;
-	}
-	folder.files.push(file);
+function createNewFolder(open = false): MonacoFolder {
+	return {
+		files: [],
+		subFolders: {},
+		open,
+	};
 }
+
+let rootFolder = $state(createNewFolder(true));
+// I tried doing this as a $derived.by, but it broke the reactivity of subfolders
+$effect(() => {
+	rootFolder = createNewFolder(true);
+	for (const file of files) {
+		untrack(() => {
+			let folder = rootFolder;
+			for (const pathFolder of file.path.split("/").slice(0, -1)) {
+				if (pathFolder in folder.subFolders) {
+					folder = folder.subFolders[pathFolder];
+				} else {
+					folder.subFolders[pathFolder] = folder = createNewFolder();
+				}
+				if (file.open) folder.open = true;
+			}
+			folder.files.push(file);
+		});
+	}
+});
 
 function openFile(file: MonacoFile) {
 	file.open = true;
@@ -47,9 +62,6 @@ function closeFile(file: MonacoFile) {
 	file.open = false;
 	if (file === activeFile) {
 		activeFile = files.find((file) => file.open);
-	} else {
-		// biome-ignore lint/correctness/noSelfAssign: Trigger reactivity
-		files = files;
 	}
 }
 </script>
@@ -65,12 +77,12 @@ function closeFile(file: MonacoFile) {
         <li class:open={file === activeFile}>
           <button
             type="button"
-            on:click={() => activeFile = file}
+            onclick={() => activeFile = file}
             class="select-btn"
           ><MonacoFilename {file}/></button>
           <button
             type="button"
-            on:click={() => closeFile(file)}
+            onclick={() => closeFile(file)}
             class="close-btn"
           >✕</button>
         </li>
@@ -78,7 +90,7 @@ function closeFile(file: MonacoFile) {
     {/each}
   </ul>
   <div id="explorer">
-    <MonacoFolderComponent name="WORKSPACE" folder={rootFolder} {openFile}/>
+    <MonacoFolderComponent name="WORKSPACE" bind:folder={rootFolder} {openFile}/>
   </div>
   <div id="editor"
        class:markdown={activeFile && activeFile.highlight_type === "markdown_preview"}
