@@ -63,6 +63,10 @@ main {
 button {
   font-size: 3em;
   margin: .5em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
   filter: drop-shadow(0 0 8px #000);
 
   &:hover {

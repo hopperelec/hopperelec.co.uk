@@ -209,8 +209,11 @@ section {
 }
 
 button {
-  padding-bottom: min(20px, 3%);
+  padding: 0 0 min(20px, 3%);
   filter: drop-shadow(0 0 32px #000);
+  display: block;
+  background: none;
+  border: none;
   cursor: pointer;
 
   .hopperelec-mode & {

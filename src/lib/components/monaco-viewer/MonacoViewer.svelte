@@ -4,7 +4,6 @@
 import SvelteMarkdown from "svelte-markdown";
 import MonacoFilename from "./MonacoFilename.svelte";
 import "svelte-highlight/styles/vs2015.css";
-import "./button-reset.css";
 import MonacoFolderComponent from "$lib/components/monaco-viewer/MonacoFolder.svelte";
 import { Highlight, HighlightSvelte } from "svelte-highlight";
 import {
@@ -164,6 +163,16 @@ h3, span {
   }
 }
 
+button {
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 13px;
+  font-family: inherit;
+}
+
 #editor-tabs {
   color: #9d9d9d;
   display: flex;
@@ -183,7 +192,6 @@ h3, span {
 
     & > .select-btn {
       display: flex;
-      font-size: 13px;
       line-height: 35px;
       border-right: var(--border);
       padding-left: 10px;

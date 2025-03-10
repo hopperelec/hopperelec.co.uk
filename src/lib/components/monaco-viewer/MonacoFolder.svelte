@@ -1,5 +1,4 @@
 <script lang="ts">
-import "./button-reset.css";
 import MonacoFilename from "$lib/components/monaco-viewer/MonacoFilename.svelte";
 import MonacoFolderComponent from "$lib/components/monaco-viewer/MonacoFolder.svelte";
 import type {
@@ -32,14 +31,26 @@ export let nesting = 1;
 </div>
 
 <style lang="scss">
-li > button {
-  width: 100%;
-  height: 100%;
-  padding-left: calc(5px + var(--nesting) * 8px);
-}
+button {
+  display: block;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: inherit;
+  font-size: 13px;
+  font-family: inherit;
 
-button:hover {
-  background-color: #2a2d2e;
+  li > & {
+    width: 100%;
+    height: 100%;
+    padding-left: calc(5px + var(--nesting) * 8px);
+  }
+
+  &:hover {
+    background-color: #2a2d2e;
+  }
 }
 
 ul {
